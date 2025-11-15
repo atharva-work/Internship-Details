@@ -1,0 +1,14 @@
+1 simple JS attack ()
+2 add email"">and script ()
+3 normal script with email ()
+4 alternative of alert ()
+5 alternative of script 
+6 ()
+7 payload without paranthesis and URL encoding ()
+8 use burp - intercept - modify - forward / pen burp then u capture the file just remane it to img <script>()
+
+"><img src=x onerror=alert(document.domain)>.gif
+
+9 <svg xmlns="http://theyfuckedme.com" onload="alert(document.domain)"/> ()
+10 ">payload ()
+11 find what are the variables there in the "Sources". Then you can add it to the URL,By?variablename you found out / use GET request methodology. go to the source code and view the JS file. answer right there ()
