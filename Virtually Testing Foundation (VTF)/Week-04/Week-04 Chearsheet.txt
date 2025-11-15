@@ -1,0 +1,5 @@
+lab 5: <script>
+if (top.location.host = "bugbountyhunter.org") {
+    window.location.href='http://evil.com/';
+ }
+ </script>     
