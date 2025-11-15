@@ -1,0 +1,29 @@
+CSRF 01: Easy
+
+URL = https://labs.hacktify.in/HTML/csrf_lab/lab_1/passwordChange.php
+Payload = Generated CSRF POC using Burp Suite and changed the password to “abcd” followed by sending the URL to victim user. Logged in into the system as victim user, followed by hitting submit button from it.
+
+CSRF 02: Medium
+
+URL = https://labs.hacktify.in/HTML/csrf_lab/lab_2/passwordChange.php
+Payload = Generated CSRF POC using Burp Suite and changed the password to “abcd” followed by sending the URL to victim user. Logged in into the system as victim user, followed by hitting submit button from it. 
+
+CSRF 03: Medium
+
+URL = https://labs.hacktify.in/HTML/csrf_lab/lab_4/passwordChange.php
+Payload = Generated CSRF POC using Burp Suite and changed the password to “abcd” followed by sending the URL to victim user. Logged in into the system as victim user, followed by hitting submit button from it.
+
+CSRF 04: Easy
+
+URL = https://labs.hacktify.in/HTML/csrf_lab/lab_6/passwordChange.php
+Payload = Generated CSRF POC using Burp Suite and changed the password to “abcd” followed by sending the URL to victim user. Logged in into the system as victim user, followed by hitting submit button from it.
+
+CSRF 05: Hard
+
+URL = http://labs.hacktify.in/HTML/csrf_lab/lab_7/lab_7.php?name=%3Cscript%3Ealert%28document.cookie%29%3C%2Fscript%3E&show=Save
+Payload = <script>alert(document.cookie)</script>
+
+CSRF 06: Hard
+
+URL = https://labs.hacktify.in/HTML/csrf_lab/lab_8/passwordChange.php
+Payload = Generated CSRF POC using Burp Suite and changed the password to “abcd” followed by sending the URL to victim user. Logged in into the system as victim user, followed by hitting submit button from it.
