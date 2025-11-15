@@ -1,0 +1,34 @@
+CORS 01: Easy
+
+URL = https://labs.hacktify.in/HTML/cors_lab/lab_1/index.php
+Payload = origin:attacker.com
+
+CORS 02: Easy
+
+URL = https://labs.hacktify.in/HTML/cors_lab/lab_2/index.php
+Payload = origin:attacker.com
+
+CORS 03: Medium
+
+URL = https://labs.hacktify.in/HTML/cors_lab/lab_1/index.php
+Payload = origin:hacktify.in,attacker.com
+
+CORS 04: Medium
+
+URL = https://labs.hacktify.in/HTML/cors_lab/lab_1/index.php
+Payload = origin:evilhacktify.com
+
+CORS 05: Hard
+
+URL = https://labs.hacktify.in/HTML/cors_lab/lab_1/index.php
+Payload = origin:wwwhacktify.in
+
+CORS 06: Hard
+
+URL = https://labs.hacktify.in/HTML/cors_lab/lab_1/index.php
+Payload = origin:hacktify.com
+
+CORS 07: Hard 
+
+URL = https://labs.hacktify.in/HTML/cors_lab/lab_1/index.php
+Payload = origin:evil.hacktify.in
