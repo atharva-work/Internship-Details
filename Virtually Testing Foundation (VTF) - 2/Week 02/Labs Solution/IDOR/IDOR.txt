@@ -1,0 +1,19 @@
+IDOR 01:
+
+URL = https://labs.hacktify.in/HTML/idor_lab/lab_1/profile.php?id=1869
+Payload = change the id number after login
+
+IDOR 02:
+
+URL = https://labs.hacktify.in/HTML/idor_lab/lab_2/profile.php?id=1327
+Payload = change the id number after login
+
+IDOR 03:
+
+URL = https://labs.hacktify.in/HTML/idor_lab/lab_3/changepassword.php?username=hacker
+Payload = change the username in the URL after login and then click on change passwoord
+
+IDOR 04:
+
+URL = https://labs.hacktify.in/HTML/idor_lab/lab_4/lab_4.php?email=Ram2%40gmail.com&pwd=abcd&submit=
+Payload = create a user, then login using that user id. change the id number from URL and tamper it to any id you wish to followed by entering your chosen details
