@@ -1,0 +1,1 @@
+<svg xmlns="http://theyfuckedme.com" onload="alert(document.domain)"/>
