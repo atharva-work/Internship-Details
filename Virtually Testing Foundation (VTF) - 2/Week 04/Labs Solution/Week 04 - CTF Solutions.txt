@@ -1,0 +1,96 @@
+Web 2.0
+
+1. Help Me:
+
+Flag: FLAG:{1_am_pr0u4_0f_u}
+How Flag Found: Successfully captured the flag by inspecting the homepage after logging in with the credentials discovered through the 'Forgot Password' field.
+
+2. Lock Web
+
+Flag: flag{V13w_r0b0t5.txt_c4n_b3_u53ful!!!}
+How Flag Found: Obtained the flag by appending '/robots.txt' to the end of the URL.
+
+3. The World
+
+Encoded String: RkxBR3tZMHVfaGF2M180eHBsMHJlRF90aDNfVzByTGQhfQ==
+Flag: FLAG{Y0u_hav3_4xpl0reD_th3_W0rLd!}
+How Flag Found: Obtained the flag by appending '/secret.txt' to the end of the URL.
+
+
+
+Network Forensics
+
+1. Mail Mystry: 
+
+Flag: flag{DFIR_G3N1US}
+How Flag Found: Obtained the flag by renaming the given file with an Outlook file extension and accessing the specified link via the mentioned button.
+
+2. Corrupted:
+
+Flag: flag{m3ss3d_h3ad3r$}
+How Flag Found: Utilized the 'repair.easeus.com' portal to recover the corrupted image provided in the challenge. Upon recovery, the photo revealed the flag text.
+
+3. Shadow Web:
+
+Flag: flag{mult1pl3p4rtsc0nfus3s}
+How Flag Found: Opened the provided file in Wireshark and examined the HTTP POST method packets, observing the data in each packet. Identified the changing alphabet in each packet, combined them, and decoded the resulting string using an online Base64 decoder to reveal the FLAG.
+
+
+
+Reverse Engg
+
+1. It's easy, y'know:
+
+Flag: flag{1337_pwd}
+
+2. Lost in the Past:
+
+Flag: flag{t00_much_rev3rs1ng}
+How Flag Found: Obtained the FLAG by examining the files inside the provided zipped folder. Found a cipher text in one of the files, which was successfully decoded using "dencode.com" to reveal the expected output.
+
+3. Decrypt Quest:
+
+Flag: flag{hjwilj111970djs}
+How Flag Found: Obtained the FLAG by downloading and extracting the provided ZIP file. Decoded the text string in the text file using a Base64 decoder, which revealed a Java program. After running the program, entered the value derived from the hint found in the Drive URL. The encoded string from the Drive URL was decoded using a Brainfuck decoder to retrieve the final input.
+
+
+
+OSINT
+
+1. Raccoon:
+
+Flag: Flag{OSINTing_is_fun}
+How Flag Found: Obtained the FLAG by exploring the references provided in the question, which involved visiting the mentioned Instagram and YouTube pages.
+
+2. Time Machine:
+
+Flag: flag{Tr0j3nHunt_t1m3_tr4v3l} 
+How Flag Found: Discovered the FLAG by searching 'Mr. TrojanHunt travel time' on Google, then exploring relevant findings on the Archive.org portal, where the FLAG was found inside a secret.txt file.
+Path: 1. https://archive.org/details/secret_202103
+      2. https://archive.org/download/secret_202103
+      3. https://dn790008.ca.archive.org/0/items/secret_202103/secret.txt
+
+
+3. Snapshot Whispers:
+
+Flag: flag{jeffrey_seidman}
+How Flag Found: Identified the image using Google Lens, revealing it as the Sydney Opera House. Subsequently, searched for it on Google Maps and filtered the reviews using the keyword 'concert hall' to gather further insights.
+
+
+
+Crypto
+
+1. Time Traveller:
+
+Flag: flag{T1m3_15_pr3C10u5_s0_Enj0y_ur_L1F5!!!}
+How Flag Found: 
+
+2. Wh@t7he####:
+
+Flag: flag{R3vers3ddd_70_g3t_m3}
+How Flag Found: Decoded the given string using an online "ReverseFuck decoder" to successfully retrieve the flag.
+
+3. Success Recipe:
+
+Flag: y0u_40+_s3rv3d!
+How Flag Found: Obtained the flag by correcting grammatical errors in the provided Chef code, compiling it using an online Chef compiler, and then decoding the output with an online BaseFuck decoder.
