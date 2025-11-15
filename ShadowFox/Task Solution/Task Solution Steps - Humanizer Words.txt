@@ -1,0 +1,51 @@
+Beginner
+
+1) Find all the ports that are open on the website http://testphp.vulnweb.com/
+
+
+
+Obtaining the open ports on a website 8
+Brute-forcing attack using dirb tool for directory exploitation 10
+Credentials sniffing in plain text on a test account 12
+Credentials sniffing in plain text on a personal account 12
+Decryption of Hashed password using web tool 15
+File mounting in the Veracrypt software for the file decryption 15
+File mounted successfully for the decryption New drive creation in the File Explorer 16
+New drive creation in the File Explorer 16
+Final secret code extraction using Veracrypt tool 17
+Exploitation of Address of Entry Point 19
+Creation of payload using “msfvenom” 22
+Sending payload to victim user 22
+Victim downloading the payload 23
+Setting up configuration for the reverse shell using msfconsole 23
+Validating the configuration in msfconsole 24
+Executing the payload in Victim’s Machine 24
+Obtaining the session after running the payload 24
+Exploitation of victim by accessing the shell using reverse code execution payload 25
+Obtaining the open ports of the simulation machine 34
+Exploitation of finding hidden directories using gobuster command-line tool 34
+Exploitation of finding hidden directories using dirbuster GUI tool 35
+Steps for exploitation the active usernames on the system 35
+Successful exploitation for obtaining the usernames 36
+Cracking password of a user using brute-forcing tool “hydra” 36
+Pushing LinEnum shell script file into exploited users temp directory 36
+Configuration and executing LinEnum tool for gathering all the details about the system for privilege escalation 37
+Enumerating directories under different user for further exploitation 37
+Converting encoded file into John the Ripper format for the brute-forcing and exploitation of login credentials 38
+Successful exploitation of final password which resides under the user “kay” 38
+Validation of completion of the Basic Pentesting Simulation Room 39
+Successful completion of all the questions of Basic Pentesting Simulation Room 39
+
+Objectives - 5
+Tasks and responsibility - 6
+BT1 - 7
+BT2 - 9
+BT3 - 11
+IT1 - 14
+IT2 - 18
+IT3 - 20
+HT2 - 26
+Learning Outcomes - 41
+Challenges and Solutions - 42
+Conclusion - 43
+References - 44
